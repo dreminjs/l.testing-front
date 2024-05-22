@@ -8,7 +8,7 @@ import {
 	Typography
 } from '@material-tailwind/react'
 import { format } from 'date-fns'
-import { Timer } from 'lucide-react'
+import { CircleHelp, Timer } from 'lucide-react'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -33,7 +33,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 			{!data || data.length === 0 ? (
 				<NoData />
 			) : (
-				data.map(({ id, title, timeLimit, testDirection }) => (
+				data.map(({ id, title, timeLimit, testDirection, questions }) => (
 					<Card
 						key={id}
 						className='mt-6 max-w-full flex flex-col'
@@ -79,7 +79,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 								</Typography>
 							</div>
 						</CardBody>
-						<CardFooter className='pt-0 flex justify-between items-center'>
+						<CardFooter className='pt-0 flex flex-wrap justify-between items-center'>
 							{user?.roleId === 2 ? (
 								<>
 									<Button
@@ -90,12 +90,16 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 									</Button>
 									<div className='flex items-center gap-2'>
 										<Timer color='indigo' /> {format(timeLimit, 'mm:ss')}
+										<CircleHelp color='indigo' /> {questions?.length || 0}
 									</div>
 								</>
 							) : (
 								<>
 									<div className='flex items-center gap-2'>
 										<Timer color='indigo' /> {format(timeLimit, 'mm:ss')}
+									</div>
+									<div className='flex items-center gap-2'>
+										<CircleHelp color='indigo' /> {questions?.length || 0}
 									</div>
 								</>
 							)}

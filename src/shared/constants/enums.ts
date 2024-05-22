@@ -7,6 +7,7 @@ export const enum PAGE_URLS {
 	LOGIN = '/auth/login',
 	CHALLENGER_REGISTER = '/auth/signup',
 	USERS = '/users',
+	CHALLENGER_INFO = '/users/challenger-info',
 	ADD_MANAGER = '/users/add-manager',
 	EDIT_MANAGER = '/users/edit-manager',
 	EDIT_CHALLENGER = '/users/edit-challenger',
@@ -16,6 +17,7 @@ export const enum PAGE_URLS {
 	EDIT_TEST = '/tests/edit',
 	RESULTS = '/results',
 	EDIT_RESULT = '/results/edit',
+
 	TEST_DIRECTIONS = '/test-directions',
 	ADD_TEST_DIRECTION = '/test-directions/add',
 	EDIT_TEST_DIRECTION = '/test-directions/edit'
@@ -31,7 +33,8 @@ export const enum SERVICE_URLS {
 	TEST_CONTENTS = 'test-contents',
 	QUESTIONS = 'questions',
 	RESULTS = 'results',
-	ANSWERS = 'answers'
+	ANSWERS = 'answers',
+	REPORTS = 'reports'
 }
 
 export const enum TOKENS {
@@ -54,5 +57,6 @@ export const enum QUERY_KEYS {
 	TEST_CONTENTS = 'test-contents',
 	QUESTIONS = 'questions',
 	RESULTS = 'results',
-	ANSWERS = 'answers'
+	ANSWERS = 'answers',
+	REPORTS = 'reports'
 }

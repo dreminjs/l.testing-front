@@ -42,7 +42,6 @@ const EditTestDirectionForm = () => {
 	if (isLoading) return <CustomLoader />
 	return (
 		<Card
-			className='mt-28'
 			color='transparent'
 			shadow={false}
 		>

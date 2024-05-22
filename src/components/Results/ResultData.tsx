@@ -1,21 +1,27 @@
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'
+import {
+	IdentificationIcon,
+	PencilSquareIcon,
+	TrashIcon
+} from '@heroicons/react/24/solid'
 import { Typography } from '@material-tailwind/react'
 import { format } from 'date-fns'
 import { FC } from 'react'
 
 import { IResult } from '@/types/result.types'
 
-import useAuth from '@/shared/hooks/useAuth'
-
 interface ResultDataProps {
 	data: IResult[] | undefined
 	onDelete: (id: number | string) => void
 	onEdit: (id: number | string) => void
+	onInfo: (id: number | string) => void
 }
 
-const ResultData: FC<ResultDataProps> = ({ data, onDelete, onEdit }) => {
-	const { user: currentUser } = useAuth()
-
+const ResultData: FC<ResultDataProps> = ({
+	data,
+	onDelete,
+	onEdit,
+	onInfo
+}) => {
 	return (
 		<>
 			{!data || data.length === 0
@@ -105,6 +111,15 @@ const ResultData: FC<ResultDataProps> = ({ data, onDelete, onEdit }) => {
 										onClick={() => onEdit(id)}
 									>
 										<PencilSquareIcon className='h-7 w-7' />
+									</div>
+									<div
+										className='inline-block cursor-pointer'
+										onClick={() => onInfo(user?.id)}
+									>
+										<IdentificationIcon
+											color='teal'
+											className='h-7 w-7'
+										/>
 									</div>
 									<div
 										className='inline-block cursor-pointer'

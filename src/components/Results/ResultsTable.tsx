@@ -23,6 +23,10 @@ export const ResultsTable = () => {
 	const handleEdit = (id: number | string) => {
 		navigate(`${PAGE_URLS.EDIT_RESULT}/${id}`)
 	}
+
+	const handleInfo = (id: number | string) => {
+		navigate(`${PAGE_URLS.CHALLENGER_INFO}/${id}`)
+	}
 	if (isLoading) return <CustomLoader />
 	return (
 		<>
@@ -36,6 +40,7 @@ export const ResultsTable = () => {
 							data={results}
 							onDelete={handleDelete}
 							onEdit={handleEdit}
+							onInfo={handleInfo}
 						/>
 					</tbody>
 				</table>

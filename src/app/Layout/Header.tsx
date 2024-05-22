@@ -35,7 +35,9 @@ const ProfileMenu = () => {
 		navigate(PAGE_URLS.LOGIN, { replace: true })
 	}
 	const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
 	const { user } = useAuth()
+
 	return (
 		<Menu
 			open={isMenuOpen}
@@ -81,12 +83,11 @@ const ProfileMenu = () => {
 					</MenuItem>
 				) : null}
 
-				<MenuItem>
+				<MenuItem onClick={logout}>
 					<Typography
 						as='span'
 						variant='small'
 						className='font-normal flex items-center gap-1 text-[17px]'
-						onClick={logout}
 						color={'red'}
 					>
 						<ArrowLeftEndOnRectangleIcon className='h-4 w-4' />
@@ -275,7 +276,7 @@ const NavList = () => {
 
 const Header = () => {
 	const [isNavOpen, setIsNavOpen] = React.useState(false)
-
+	const { user } = useAuth()
 	const toggleIsNavOpen = () => setIsNavOpen(cur => !cur)
 
 	React.useEffect(() => {
@@ -301,7 +302,21 @@ const Header = () => {
 					<Bars2Icon className='h-6 w-6' />
 				</IconButton>
 
-				<ProfileMenu />
+				{user?.roleId !== 2 ? (
+					<div className='flex items-center gap-4'>
+						<Menu>
+							<MenuHandler>
+								<Button color='teal'>Отчеты</Button>
+							</MenuHandler>
+							<MenuList>
+								<MenuItem>Отчёт по результатам тестирования</MenuItem>
+							</MenuList>
+						</Menu>
+						<ProfileMenu />
+					</div>
+				) : (
+					<ProfileMenu />
+				)}
 			</div>
 			<MobileNav
 				open={isNavOpen}

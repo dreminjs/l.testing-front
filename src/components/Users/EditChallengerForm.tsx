@@ -55,7 +55,7 @@ const EditChallengerForm = () => {
 	if (isLoading) return <CustomLoader />
 	return (
 		<Card
-			className='mt-24'
+			className=''
 			color='transparent'
 			shadow={false}
 		>
@@ -114,10 +114,9 @@ const EditChallengerForm = () => {
 						defaultValue={user?.middleName}
 						placeholder={user?.middleName}
 						{...register('middleName', {
-							required: { message: 'Обязательное поле', value: true }
+							required: false
 						})}
 					/>
-					{errors.middleName && <span>{errors?.middleName?.message}</span>}
 
 					<Input
 						label='Email'

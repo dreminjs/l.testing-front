@@ -12,6 +12,7 @@ import TestsPage from '@/pages/Test/TestsPage'
 import AddTestDirectionPage from '@/pages/TestDirection/AddTestDirectionPage'
 import EditTestDirectionPage from '@/pages/TestDirection/EditTestDirectionPage'
 import TestDirectionsPage from '@/pages/TestDirection/TestDirectionsPage'
+import ChallengerInfoPage from '@/pages/Users/ChallengerInfoPage'
 import EditChallengerPage from '@/pages/Users/EditChallengerPage'
 import UsersPage from '@/pages/Users/UsersPage'
 import { PAGE_URLS } from '@/shared/constants/enums'
@@ -32,6 +33,10 @@ export const routeConfig = [
 	{
 		path: PAGE_URLS.USERS,
 		element: <UsersPage />
+	},
+	{
+		path: `${PAGE_URLS.CHALLENGER_INFO}/:id`,
+		element: <ChallengerInfoPage />
 	},
 	{
 		path: `${PAGE_URLS.EDIT_CHALLENGER}/:id`,
@@ -77,6 +82,7 @@ export const routeConfig = [
 		path: PAGE_URLS.RESULTS,
 		element: <ResultsPage />
 	},
+
 	{
 		path: `${PAGE_URLS.EDIT_RESULT}/:id`,
 		element: <EditResultPage />

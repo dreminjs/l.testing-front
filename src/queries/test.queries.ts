@@ -20,15 +20,15 @@ export const useCreateTest = () => {
 	return { create, isPending }
 }
 
-export const useGetTests = () => {
+export const useGetTests = (name?: string) => {
 	const {
 		data: tests,
 		isLoading,
 		refetch
 	} = useQuery({
-		queryKey: [QUERY_KEYS.TESTS],
+		queryKey: [QUERY_KEYS.TESTS, name],
 		queryFn: async () => {
-			const response: AxiosResponse<ITest[]> = await TestService.getAll()
+			const response: AxiosResponse<ITest[]> = await TestService.getAll(name)
 			return response.data
 		}
 	})

@@ -45,7 +45,7 @@ const AddTestForm: FC = () => {
 	}
 	if (isLoading) return <CustomLoader />
 	return (
-		<Card className='w-96 mt-28'>
+		<Card className='w-96 '>
 			<CardHeader
 				variant='gradient'
 				color='indigo'
@@ -82,6 +82,7 @@ const AddTestForm: FC = () => {
 							</Select>
 						)}
 					/>
+
 					<Input
 						{...register('title', {
 							required: { message: 'Обязательное поле', value: true }

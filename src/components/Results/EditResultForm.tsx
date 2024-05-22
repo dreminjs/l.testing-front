@@ -26,13 +26,17 @@ const EditResultForm = () => {
 	useEffect(() => {
 		if (result) {
 			const formattedResult = {
-				...result,
 				interviewDate: result.interviewDate
 					? format(new Date(result.interviewDate), 'yyyy-MM-dd')
 					: undefined,
 				completionTime: result.completionTime
 					? format(new Date(result.completionTime), "yyyy-MM-dd'T'HH:mm")
-					: undefined
+					: undefined,
+				isPassed: result.isPassed,
+				scoreId: result.scoreId,
+				userId: result.userId,
+				testId: result.testId,
+				attemptRate: result.attemptRate
 			}
 			reset(formattedResult as any)
 		}
@@ -45,7 +49,8 @@ const EditResultForm = () => {
 				...data,
 				interviewDate: new Date(data.interviewDate),
 				completionTime: new Date(data.completionTime),
-				scoreId: Number(data.scoreId)
+				scoreId: Number(data.scoreId),
+				attemptRate: Number(data.attemptRate)
 			}
 		})
 		refetch()
@@ -54,45 +59,40 @@ const EditResultForm = () => {
 	if (isLoading) return <CustomLoader />
 	return (
 		<Card
-			className='mt-28'
 			color='transparent'
 			shadow={false}
 		>
 			<Typography
 				variant='h4'
 				color='blue-gray'
-				className='text-center'
+				className='text-center font-bold'
 			>
 				Форма изменения результата
 			</Typography>
-
+			<div className='flex flex-col items-center mt-2 justify-center'>
+				<p
+					color='blue-gray'
+					className='text-center font-normal'
+				>
+					{`${result?.test.testDirection.directionName}`}
+				</p>
+				<p
+					color='blue-gray'
+					className='text-center '
+				>
+					{`${result?.test.title}`}
+				</p>
+				<p
+					color='blue-gray'
+					className='text-center font-normal'
+				>
+					{`${result?.user.lastName} ${result?.user.firstName} ${result?.user.middleName || ''}`}
+				</p>
+			</div>
 			<form
 				onSubmit={handleSubmit(data => handleUpdate(id, data))}
-				className='mt-8 mb-2 w-80 max-w-screen-lg sm:w-96'
+				className='mt-4 mb-2 w-80 max-w-screen-lg sm:w-96'
 			>
-				<div>
-					<Typography
-						variant='h6'
-						color='blue-gray'
-						className='text-center'
-					>
-						{`${result?.user.lastName} ${result?.user.firstName} ${result?.user.middleName || ''}`}
-					</Typography>
-					<Typography
-						variant='h6'
-						color='blue-gray'
-						className='text-center'
-					>
-						{`${result?.test.testDirection.directionName}`}
-					</Typography>
-					<Typography
-						variant='h6'
-						color='blue-gray'
-						className='text-center'
-					>
-						{`${result?.test.title}`}
-					</Typography>
-				</div>
 				<div className='mb-1 flex flex-col gap-6'>
 					<Input
 						label='Количество баллов'
@@ -104,6 +104,18 @@ const EditResultForm = () => {
 						})}
 					/>
 					{errors.scoreId && <span>{errors?.scoreId?.message}</span>}
+					<div className='mb-1 flex flex-col gap-6'>
+						<Input
+							label='Количество попыток'
+							size='lg'
+							type='number'
+							placeholder='Выберите количество попыток'
+							{...register('attemptRate', {
+								required: { message: 'Обязательное поле', value: true }
+							})}
+						/>
+						{errors.attemptRate && <span>{errors?.attemptRate?.message}</span>}
+					</div>
 
 					<Input
 						label='Время прохождения'

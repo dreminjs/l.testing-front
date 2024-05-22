@@ -7,7 +7,10 @@ const CustomLoader = () => {
 				'fixed inset-0 z-50 flex justify-center items-center  bg-opacity-50'
 			}
 		>
-			<Spinner className='h-6 w-6' />
+			<Spinner
+				color='teal'
+				className='h-6 w-6'
+			/>
 		</div>
 	)
 }

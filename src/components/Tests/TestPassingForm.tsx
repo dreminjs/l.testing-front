@@ -1,6 +1,6 @@
 import { Button, Card } from '@material-tailwind/react'
 import { format } from 'date-fns'
-import { ArrowRight, StarIcon, TimerIcon } from 'lucide-react'
+import { ArrowRight, BarChart, StarIcon, TimerIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
@@ -20,6 +20,7 @@ const TestPassingForm = () => {
 	const [answers, setAnswers] = useState<{ [questionId: string]: string }>({})
 	const [testCompleted, setTestCompleted] = useState(false)
 	const [isPassedState, setIsPassedState] = useState(false)
+
 	const [testResult, setTestResult] = useState({
 		correct: 0,
 		incorrect: 0
@@ -34,14 +35,22 @@ const TestPassingForm = () => {
 	const { handleSubmit } = useForm<any>()
 
 	useEffect(() => {
-		if (test) {
+		if (test && !startTime) {
 			const start = new Date()
+			localStorage.setItem('testStartTime', start.toISOString())
 			setStartTime(start)
 		}
-	}, [test])
+	}, [test, startTime])
 
 	useEffect(() => {
-		let timerInterval: NodeJS.Timeout
+		let timerInterval = null
+		if (!startTime) {
+			const storedStartTime = localStorage.getItem('testStartTime')
+			if (storedStartTime) {
+				setStartTime(new Date(storedStartTime))
+			}
+		}
+
 		if (startTime && !testCompleted) {
 			timerInterval = setInterval(() => {
 				const now = new Date()
@@ -49,10 +58,18 @@ const TestPassingForm = () => {
 			}, 1000)
 		}
 		return () => {
-			clearInterval(timerInterval)
+			if (timerInterval) clearInterval(timerInterval)
 		}
 	}, [startTime, testCompleted])
 
+	const userResults = user?.tests
+		?.map(t => t.results)
+		.flat()
+		.filter(r => r.testId === Number(id))
+	const [attemptRate, setAttemptRate] = useState(0)
+
+	const a = userResults?.find(r => r.attemptRate)
+	console.log(a)
 	const onSubmit = async (data: TypeResultForm) => {
 		const endTime = new Date()
 		const duration = startTime ? endTime.getTime() - startTime.getTime() : 0
@@ -94,8 +111,10 @@ const TestPassingForm = () => {
 			testId: Number(id),
 			completionTime: completionTime,
 			userId: user?.id as number,
-			isPassed: isPassedState
+			isPassed: isPassedState,
+			attemptRate: data.attemptRate ? Number(data.attemptRate) : 0
 		})
+		localStorage.removeItem('testStartTime')
 		setTestCompleted(true)
 	}
 
@@ -121,7 +140,10 @@ const TestPassingForm = () => {
 				<h2 className='text-3xl sm:text-4xl font-bold text-teal-600'>
 					Результаты теста
 				</h2>
-				<p className='text-lg sm:text-xl mt-4'>{test?.title}</p>
+				<p className='text-[16px] sm:text-[16px] mt-4'>
+					{test?.testDirection.directionName}
+				</p>
+				<p className='text-lg sm:text-xl '>{test?.title}</p>
 				<div>
 					<img
 						className='w-32 sm:w-48 md:w-64 mx-auto'
@@ -137,6 +159,11 @@ const TestPassingForm = () => {
 							/>
 							{testScore}/{test?.thresholdValue}
 						</div>
+						<div className='flex items-center gap-2'>
+							<BarChart color='teal' />
+							{attemptRate}
+						</div>
+
 						<div className='flex items-center gap-2'>
 							<TimerIcon color='teal' />
 							{format(new Date(elapsedTime), 'mm:ss')}
@@ -162,7 +189,7 @@ const TestPassingForm = () => {
 	}
 
 	return (
-		<Card className='min-w-[400px] mx-auto p-4 mt-28'>
+		<Card className='min-w-[400px] mx-auto p-4 '>
 			<div className='flex justify-between'>
 				{test?.testDirection.directionName}
 

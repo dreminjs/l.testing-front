@@ -7,8 +7,9 @@ export const TestService = {
 	async create(data: TypeTestForm) {
 		return instance.post<ITest>(SERVICE_URLS.TESTS, data)
 	},
-	async getAll() {
-		return instance.get<ITest[]>(SERVICE_URLS.TESTS)
+	async getAll(name?: string) {
+		const url = name ? `${SERVICE_URLS.TESTS}?name=${name}` : SERVICE_URLS.TESTS
+		return instance.get<ITest[]>(url)
 	},
 
 	async getById(id: string | undefined) {

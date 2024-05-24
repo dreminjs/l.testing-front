@@ -34,6 +34,7 @@ const LoginForm = () => {
 	const handleLogin = async (data: ILogin) => {
 		try {
 			await login(data as ILogin)
+			navigate(PAGE_URLS.USERS, { replace: true })
 		} catch (error) {
 			setLoginError('Неверный логин или пароль')
 			reset()
@@ -42,6 +43,7 @@ const LoginForm = () => {
 	const handleChallengerLogin = async (data: IChallengerLogin) => {
 		try {
 			await challengerLogin(data as IChallengerLogin)
+			navigate(PAGE_URLS.TESTS, { replace: true })
 		} catch (error) {
 			setLoginError('Неверный логин или пароль')
 			reset()

@@ -6,9 +6,11 @@ import {
 	CardHeader,
 	Checkbox,
 	Input,
+	Option,
+	Select,
 	Typography
 } from '@material-tailwind/react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 import { IChallengerRegister } from '@/types/auth.types'
@@ -23,8 +25,9 @@ const RegisterForm = () => {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors }
-	} = useForm<IChallengerRegister>()
+		formState: { errors },
+		control
+	} = useForm<IChallengerRegister>({ mode: 'onChange' })
 
 	const { mutateAsync } = useChallengerRegister()
 
@@ -113,15 +116,61 @@ const RegisterForm = () => {
 					<Input
 						label='Номер телефона'
 						size='lg'
-						{...register('phoneNumber', { required: true })}
+						placeholder='+375 (29) 999-99-99'
+						{...register('phoneNumber', {
+							required: {
+								value: true,
+								message: 'Поле обязательно для заполнения'
+							},
+							minLength: {
+								value: 6,
+								message: 'Минимальная длина 6 символов'
+							},
+							maxLength: {
+								value: 20,
+								message: 'Максимальная длина 20 символов'
+							},
+							pattern: {
+								value: /^\+375\d{2}\d{3}\d{2}\d{2}$/,
+								message: 'Введите номер в формате +375 ## ### ## ##'
+							}
+						})}
 					/>
 					{errors.phoneNumber && (
 						<span className='text-sm'>Обязательное поле</span>
 					)}
-					<Input
-						label='Семейное положение'
-						size='lg'
-						{...register('maritalStatus', { required: true })}
+
+					<Controller
+						control={control}
+						name='maritalStatus'
+						rules={{ required: 'Обязательное поле' }}
+						render={({
+							field: { onChange, value, ...field },
+							fieldState: { error }
+						}) => (
+							<Select
+								{...field}
+								value={String(value)}
+								label='Выберите семейное положение'
+								onChange={onChange}
+								error={!!error}
+							>
+								<Option value='Никогда не состоял (-а)'>
+									Никогда не состоял (-а)
+								</Option>
+								<Option value='Состоит в зарегистрированном браке'>
+									Состоит в зарегистрированном браке
+								</Option>
+								<Option value='Состоит в незарегистрированном браке'>
+									Состоит в незарегистрированном браке
+								</Option>
+								<Option value='Вдова (вдовец)'>Вдова (вдовец)</Option>
+								<Option value='Разведен (-а)'>Разведен (-а)</Option>
+								<Option value='Разошёлся (разошлась)'>
+									Разошёлся (разошлась)
+								</Option>
+							</Select>
+						)}
 					/>
 					{errors.maritalStatus && (
 						<span className='text-sm'>Обязательное поле</span>

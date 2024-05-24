@@ -56,7 +56,15 @@ const EditManagerForm = () => {
 						defaultValue={user?.login}
 						placeholder={user?.login}
 						{...register('login', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: {
+								message: 'Минимальная длина 3 символа',
+								value: 3
+							},
+							maxLength: {
+								message: 'Максимальная длина 20 символов',
+								value: 20
+							}
 						})}
 					/>
 					{errors.login && <span>{errors?.login?.message}</span>}
@@ -66,7 +74,17 @@ const EditManagerForm = () => {
 						size='lg'
 						type='password'
 						placeholder='Введите пароль'
-						{...register('password')}
+						{...register('password', {
+							required: { message: 'Обязательное поле', value: true },
+							minLength: {
+								message: 'Минимальная длина 6 символов',
+								value: 3
+							},
+							maxLength: {
+								message: 'Максимальная длина 30 символов',
+								value: 20
+							}
+						})}
 					/>
 				</div>
 

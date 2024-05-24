@@ -4,7 +4,7 @@ import WithPageLayout from '@/app/Layout/hoc/WithPageLayout'
 
 const ResultsPage = () => {
 	return (
-		<div className='flex items-center justify-center '>
+		<div>
 			<ResultsTable />
 		</div>
 	)

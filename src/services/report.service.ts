@@ -5,6 +5,6 @@ import { SERVICE_URLS } from '@/shared/constants/enums'
 
 export const ReportService = {
 	async getResultsReport() {
-		return instance.get<IResultReport[]>(SERVICE_URLS.REPORTS)
+		return instance.get<IResultReport[]>(`${SERVICE_URLS.REPORTS}/get-results`)
 	}
 }

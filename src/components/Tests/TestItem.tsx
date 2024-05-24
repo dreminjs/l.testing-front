@@ -1,4 +1,8 @@
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'
+import {
+	CheckBadgeIcon,
+	PencilSquareIcon,
+	TrashIcon
+} from '@heroicons/react/24/solid'
 import {
 	Button,
 	Card,
@@ -28,6 +32,7 @@ interface ITestItemProps {
 const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 	const navigate = useNavigate()
 	const { user } = useAuth()
+	console.log(user)
 	return (
 		<>
 			{!data || data.length === 0 ? (
@@ -42,7 +47,21 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 							color='blue-gray'
 							className='relative'
 						>
-							{user?.roleId === 2 ? null : (
+							{user?.roleId === 2 &&
+							data?.some(test =>
+								test.results.some(
+									result => result.isPassed === true && result.testId === id
+								)
+							) ? (
+								<div className='absolute top-0 left-0 p-2 flex gap-3'>
+									<CheckBadgeIcon
+										color='green'
+										className='w-6 h-6'
+										aria-hidden='true'
+									/>
+								</div>
+							) : null}
+							{user?.roleId !== 2 ? (
 								<div className='absolute top-0 right-0 p-2 flex gap-3'>
 									<PencilSquareIcon
 										className='w-6 h-6 cursor-pointer text-black'
@@ -55,7 +74,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 										aria-hidden='true'
 									/>
 								</div>
-							)}
+							) : null}
 							<img
 								className='w-full h-[150px]  object-cover'
 								src='https://foundr.com/wp-content/uploads/2023/04/How-to-create-an-online-course.jpg.webp'
@@ -82,16 +101,39 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 						<CardFooter className='pt-0 flex flex-wrap justify-between items-center'>
 							{user?.roleId === 2 ? (
 								<>
-									<Button
-										onClick={() => navigate(`${PAGE_URLS.TEST_PASSING}/${id}`)}
-										color='indigo'
-									>
-										Пройти
-									</Button>
-									<div className='flex items-center gap-2'>
-										<Timer color='indigo' /> {format(timeLimit, 'mm:ss')}
-										<CircleHelp color='indigo' /> {questions?.length || 0}
-									</div>
+									{data?.some(test =>
+										test.results.some(
+											result => result.isPassed === true && result.testId === id
+										)
+									) ? (
+										<>
+											<Button
+												disabled
+												color='indigo'
+											>
+												Пройдено
+											</Button>
+											<div className='flex items-center gap-2'>
+												<Timer color='indigo' /> {format(timeLimit, 'mm:ss')}
+												<CircleHelp color='indigo' /> {questions?.length || 0}
+											</div>
+										</>
+									) : (
+										<>
+											<Button
+												onClick={() =>
+													navigate(`${PAGE_URLS.TEST_PASSING}/${id}`)
+												}
+												color='indigo'
+											>
+												Пройти
+											</Button>
+											<div className='flex items-center gap-2'>
+												<Timer color='indigo' /> {format(timeLimit, 'mm:ss')}
+												<CircleHelp color='indigo' /> {questions?.length || 0}
+											</div>
+										</>
+									)}
 								</>
 							) : (
 								<>

@@ -63,13 +63,20 @@ const AddTestForm: FC = () => {
 				<CardBody className='flex flex-col gap-4'>
 					<Controller
 						control={control}
+						rules={{
+							required: { message: 'Обязательное поле', value: true }
+						}}
 						name='directionId'
-						render={({ field: { onChange, value, ...field } }) => (
+						render={({
+							field: { onChange, value, ...field },
+							fieldState: { error }
+						}) => (
 							<Select
 								{...field}
 								value={String(value)}
 								label='Выберите направление'
 								onChange={onChange}
+								error={!!error}
 							>
 								{testDirections?.map(({ id, directionName }) => (
 									<Option
@@ -82,10 +89,15 @@ const AddTestForm: FC = () => {
 							</Select>
 						)}
 					/>
-
+					{errors.directionId && errors?.directionId?.message}
 					<Input
 						{...register('title', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: { message: 'Минимальная длина 6 символов', value: 6 },
+							maxLength: {
+								message: 'Максимальная длина 255 символа',
+								value: 255
+							}
 						})}
 						label='Введите название теста'
 						size='lg'
@@ -97,6 +109,7 @@ const AddTestForm: FC = () => {
 						})}
 						type='number'
 						label='Введите количество баллов для прохождения'
+						min={1}
 						size='lg'
 					/>
 					{errors.thresholdValue && errors?.thresholdValue?.message}
@@ -106,6 +119,7 @@ const AddTestForm: FC = () => {
 						})}
 						type='datetime-local'
 						label='Выберите время на прохождение'
+						min={new Date().toISOString().slice(0, 16)}
 						size='lg'
 					/>
 					{errors.timeLimit && errors?.timeLimit?.message}
@@ -115,6 +129,7 @@ const AddTestForm: FC = () => {
 						})}
 						type='number'
 						label='Введите лимит попыток'
+						min={1}
 						size='lg'
 					/>
 					{errors.attemptLimit && errors?.attemptLimit?.message}

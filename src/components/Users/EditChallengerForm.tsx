@@ -3,11 +3,13 @@ import {
 	Card,
 	Checkbox,
 	Input,
+	Option,
+	Select,
 	Textarea,
 	Typography
 } from '@material-tailwind/react'
 import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
 import { TypeUserForm } from '@/types/user.types'
@@ -25,8 +27,9 @@ const EditChallengerForm = () => {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors }
-	} = useForm<TypeUserForm>()
+		formState: { errors },
+		control
+	} = useForm<TypeUserForm>({ mode: 'onChange' })
 
 	const { update } = useUpdateUser()
 
@@ -92,7 +95,12 @@ const EditChallengerForm = () => {
 						defaultValue={user?.lastName}
 						placeholder={user?.lastName}
 						{...register('lastName', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: { message: 'Минимальная длина 3 символа', value: 3 },
+							maxLength: {
+								message: 'Максимальная длина 30 символов',
+								value: 30
+							}
 						})}
 					/>
 					{errors.lastName && <span>{errors?.lastName?.message}</span>}
@@ -103,7 +111,12 @@ const EditChallengerForm = () => {
 						defaultValue={user?.firstName}
 						placeholder={user?.firstName}
 						{...register('firstName', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: { message: 'Минимальная длина 3 символа', value: 3 },
+							maxLength: {
+								message: 'Максимальная длина 30 символов',
+								value: 30
+							}
 						})}
 					/>
 					{errors.firstName && <span>{errors?.firstName?.message}</span>}
@@ -114,7 +127,8 @@ const EditChallengerForm = () => {
 						defaultValue={user?.middleName}
 						placeholder={user?.middleName}
 						{...register('middleName', {
-							required: false
+							required: false,
+							minLength: { message: 'Минимальная длина 3 символа', value: 3 }
 						})}
 					/>
 
@@ -124,7 +138,15 @@ const EditChallengerForm = () => {
 						defaultValue={user?.email}
 						placeholder={user?.email}
 						{...register('email', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: {
+								value: 3,
+								message: 'Минимальная длина 3 символа'
+							},
+							maxLength: {
+								value: 30,
+								message: 'Максимальная длина 30 символов'
+							}
 						})}
 					/>
 					{errors.email && <span>{errors?.email?.message}</span>}
@@ -135,7 +157,19 @@ const EditChallengerForm = () => {
 						defaultValue={user?.phoneNumber}
 						placeholder={user?.phoneNumber}
 						{...register('phoneNumber', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: {
+								value: 6,
+								message: 'Минимальная длина 6 символов'
+							},
+							maxLength: {
+								value: 20,
+								message: 'Максимальная длина 20 символов'
+							},
+							pattern: {
+								value: /^\+375\d{2}\d{3}\d{2}\d{2}$/,
+								message: 'Введите номер в формате +375 ## ### ## ##'
+							}
 						})}
 					/>
 					{errors.phoneNumber && <span>{errors?.phoneNumber?.message}</span>}
@@ -153,14 +187,38 @@ const EditChallengerForm = () => {
 						/>
 					</div>
 
-					<Input
-						label='Семейное положение'
-						size='lg'
-						defaultValue={user?.maritalStatus}
-						placeholder={user?.maritalStatus}
-						{...register('maritalStatus', {
-							required: { message: 'Обязательное поле', value: true }
-						})}
+					<Controller
+						control={control}
+						name='maritalStatus'
+						rules={{ required: 'Обязательное поле' }}
+						render={({
+							field: { onChange, value, ...field },
+							fieldState: { error }
+						}) => (
+							<Select
+								{...field}
+								value={String(value)}
+								label='Выберите семейное положение'
+								onChange={onChange}
+								defaultValue={user?.maritalStatus}
+								error={!!error}
+							>
+								<Option value='Никогда не состоял (-а)'>
+									Никогда не состоял (-а)
+								</Option>
+								<Option value='Состоит в зарегистрированном браке'>
+									Состоит в зарегистрированном браке
+								</Option>
+								<Option value='Состоит в незарегистрированном браке'>
+									Состоит в незарегистрированном браке
+								</Option>
+								<Option value='Вдова (вдовец)'>Вдова (вдовец)</Option>
+								<Option value='Разведен (-а)'>Разведен (-а)</Option>
+								<Option value='Разошёлся (разошлась)'>
+									Разошёлся (разошлась)
+								</Option>
+							</Select>
+						)}
 					/>
 					{errors.maritalStatus && (
 						<span>{errors?.maritalStatus?.message}</span>

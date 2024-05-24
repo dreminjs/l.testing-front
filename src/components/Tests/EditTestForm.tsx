@@ -48,7 +48,10 @@ const EditTestForm = () => {
 		reset: updateTestReset,
 		control,
 		formState: { errors: updateTestErrors }
-	} = useForm<TypeTestForm>({ defaultValues: { timeLimit: test?.timeLimit } })
+	} = useForm<TypeTestForm>({
+		defaultValues: { timeLimit: test?.timeLimit },
+		mode: 'onChange'
+	})
 
 	const handleUpdateTest = async (
 		id: string | undefined,
@@ -196,7 +199,15 @@ const EditTestForm = () => {
 									label='Название теста'
 									size='lg'
 									{...updateTestRegister('title', {
-										required: { message: 'Обязательное поле', value: true }
+										required: { message: 'Обязательное поле', value: true },
+										minLength: {
+											message: 'Минимальная длина 6 символов',
+											value: 6
+										},
+										maxLength: {
+											message: 'Максимальная длина 255 символа',
+											value: 255
+										}
 									})}
 								/>
 								{updateTestErrors.title && updateTestErrors?.title?.message}
@@ -206,6 +217,7 @@ const EditTestForm = () => {
 									})}
 									type='number'
 									label='Введите количество баллов для прохождения'
+									min={1}
 									size='lg'
 								/>
 								{updateTestErrors.thresholdValue &&
@@ -226,6 +238,7 @@ const EditTestForm = () => {
 									})}
 									type='number'
 									label='Введите лимит попыток'
+									min={1}
 									size='lg'
 								/>
 								{updateTestErrors.attemptLimit &&

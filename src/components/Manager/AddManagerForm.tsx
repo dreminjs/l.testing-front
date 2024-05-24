@@ -45,7 +45,18 @@ const AddManagerForm = () => {
 						size='lg'
 						placeholder='Введите логин'
 						{...register('login', {
-							required: { message: 'Обязательное поле', value: true }
+							required: {
+								message: 'Обязательное поле',
+								value: true
+							},
+							minLength: {
+								message: 'Минимальная длина 3 символа',
+								value: 3
+							},
+							maxLength: {
+								message: 'Максимальная длина 20 символов',
+								value: 20
+							}
 						})}
 					/>
 					{errors.login && <span>{errors?.login?.message}</span>}
@@ -56,7 +67,15 @@ const AddManagerForm = () => {
 						placeholder='Введите пароль'
 						type='password'
 						{...register('password', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: {
+								message: 'Минимальная длина 6 символа',
+								value: 3
+							},
+							maxLength: {
+								message: 'Максимальная длина 30 символов',
+								value: 20
+							}
 						})}
 					/>
 					{errors.password && <span>{errors?.password?.message}</span>}

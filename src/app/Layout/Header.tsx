@@ -278,7 +278,7 @@ const Header = () => {
 	const [isNavOpen, setIsNavOpen] = React.useState(false)
 	const { user } = useAuth()
 	const toggleIsNavOpen = () => setIsNavOpen(cur => !cur)
-
+	const navigate = useNavigate()
 	React.useEffect(() => {
 		window.addEventListener(
 			'resize',
@@ -309,7 +309,11 @@ const Header = () => {
 								<Button color='teal'>Отчеты</Button>
 							</MenuHandler>
 							<MenuList>
-								<MenuItem>Отчёт по результатам тестирования</MenuItem>
+								<MenuItem
+									onClick={() => navigate(`${PAGE_URLS.REPORTS}/get-results`)}
+								>
+									Отчёт по результатам тестирования
+								</MenuItem>
 							</MenuList>
 						</Menu>
 						<ProfileMenu />

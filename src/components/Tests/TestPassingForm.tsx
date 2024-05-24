@@ -26,7 +26,7 @@ const TestPassingForm = () => {
 		incorrect: 0
 	})
 	const [testScore, setTestCore] = useState(0)
-	const { test, isLoading, refetch } = useGetTest(id)
+	const { test, isLoading } = useGetTest(id)
 
 	const [startTime, setStartTime] = useState<Date | null>(null)
 	const [elapsedTime, setElapsedTime] = useState<number>(0)

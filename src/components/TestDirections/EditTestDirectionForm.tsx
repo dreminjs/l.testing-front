@@ -21,7 +21,7 @@ const EditTestDirectionForm = () => {
 		handleSubmit,
 		reset,
 		formState: { errors }
-	} = useForm<TypeTestDirectionForm>()
+	} = useForm<TypeTestDirectionForm>({ mode: 'onChange' })
 
 	const { update } = useUpdateTestDirection()
 
@@ -63,7 +63,12 @@ const EditTestDirectionForm = () => {
 						size='lg'
 						placeholder='Введите название направления'
 						{...register('directionName', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: { message: 'Минимальная длина 3 символа', value: 3 },
+							maxLength: {
+								message: 'Максимальная длина 30 символов',
+								value: 30
+							}
 						})}
 					/>
 					{errors.directionName && (

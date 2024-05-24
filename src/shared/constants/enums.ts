@@ -17,7 +17,7 @@ export const enum PAGE_URLS {
 	EDIT_TEST = '/tests/edit',
 	RESULTS = '/results',
 	EDIT_RESULT = '/results/edit',
-
+	REPORTS = '/reports',
 	TEST_DIRECTIONS = '/test-directions',
 	ADD_TEST_DIRECTION = '/test-directions/add',
 	EDIT_TEST_DIRECTION = '/test-directions/edit'

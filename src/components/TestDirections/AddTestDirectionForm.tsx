@@ -14,7 +14,7 @@ const AddTestDirectionForm = () => {
 		handleSubmit,
 		reset,
 		formState: { errors }
-	} = useForm<ITestDirection>()
+	} = useForm<ITestDirection>({ mode: 'onChange' })
 	const { create } = useCreateTestDirection()
 	const handleCreate = async (data: ITestDirection) => {
 		await create(data)
@@ -45,7 +45,12 @@ const AddTestDirectionForm = () => {
 						size='lg'
 						placeholder='Введите название направления'
 						{...register('directionName', {
-							required: { message: 'Обязательное поле', value: true }
+							required: { message: 'Обязательное поле', value: true },
+							minLength: { message: 'Минимальная длина 3 символа', value: 3 },
+							maxLength: {
+								message: 'Максимальная длина 30 символов',
+								value: 30
+							}
 						})}
 					/>
 					{errors.directionName && (

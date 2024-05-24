@@ -57,7 +57,7 @@ const TestComponent = () => {
 					</div>
 					<div className='flex-grow'>
 						<select
-							className='border border-blue-gray-200 text-gray-600 outline-none p-2 rounded-md'
+							className='border w-[200px] text-[14px] border-blue-gray-200 text-[#455A64] h-[40px] outline-none p-2 rounded-md'
 							value={directionName}
 							onChange={e => setDirectionName(e.target.value)}
 						>

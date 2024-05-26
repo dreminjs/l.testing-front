@@ -12,19 +12,21 @@ import { PAGE_URLS } from '@/shared/constants/enums'
 
 const UsersTable = () => {
 	const navigate = useNavigate()
-	const { users, refetch, isLoading } = useGetUsers()
+	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
+	const [maritalStatus, setMaritalStatus] = useState<string>('')
+	const [hasChildren, setHasChildren] = useState<string>('')
+	const [hasMilitaryId, setHasMilitaryId] = useState<string>('')
+	const { users, refetch, isLoading } = useGetUsers(
+		maritalStatus,
+		hasChildren,
+		hasMilitaryId
+	)
 
 	const { mutateAsync } = useDeleteUser()
 
 	const handleDelete = async (id: number | string) => {
 		await mutateAsync(id)
 		refetch()
-	}
-
-	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
-
-	const handleSortOrder = () => {
-		setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
 	}
 
 	const sortedUsers = users?.sort((a, b) => {
@@ -41,21 +43,61 @@ const UsersTable = () => {
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
-							onChange={handleSortOrder}
+							onChange={() =>
+								setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+							}
 						>
 							<Option value='asc'>По возрастанию</Option>
 							<Option value='desc'>По убыванию</Option>
 						</Select>
 					</div>
-					{/* <div className='flex-grow'>
+					<div>
 						<select
 							className='border w-[200px] text-[14px] border-blue-gray-200 text-[#455A64] h-[40px] outline-none p-2 rounded-md'
-							value={directionName}
-							onChange={e => setDirectionName(e.target.value)}
+							value={maritalStatus}
+							onChange={e => setMaritalStatus(e.target.value)}
 						>
-							<option value=''>Все направления</option>
+							<option value=''>Семейное положение</option>
+							<option value='Никогда не состоял (-а)'>
+								Никогда не состоял (-а)
+							</option>
+							<option value='Состоит в зарегистрированном браке'>
+								Состоит в зарегистрированном браке
+							</option>
+							<option value='Состоит в незарегистрированном браке'>
+								Состоит в незарегистрированном браке
+							</option>
+							<option value='Вдова (вдовец)'>Вдова (вдовец)</option>
+							<option value='Разведен (-а)'>Разведен (-а)</option>
+							<option value='Разошёлся (разошлась)'>
+								Разошёлся (разошлась)
+							</option>
 						</select>
-					</div> */}
+					</div>
+					<div>
+						<select
+							className='border w-[200px] text-[14px] border-blue-gray-200 text-[#455A64] h-[40px] outline-none p-2 rounded-md'
+							value={hasChildren}
+							onChange={e => setHasChildren(e.target.value)}
+						>
+							<option value=''>Есть ли дети?</option>
+
+							<option value='true'>Есть</option>
+							<option value='false'>Нет</option>
+						</select>
+					</div>
+					<div>
+						<select
+							className='border w-[200px] text-[14px] border-blue-gray-200 text-[#455A64] h-[40px] outline-none p-2 rounded-md'
+							value={hasMilitaryId}
+							onChange={e => setHasMilitaryId(e.target.value)}
+						>
+							<option value=''>Есть ли военный билет?</option>
+
+							<option value='true'>Есть</option>
+							<option value='false'>Нет</option>
+						</select>
+					</div>
 				</div>
 
 				<div>

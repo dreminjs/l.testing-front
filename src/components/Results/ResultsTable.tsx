@@ -8,12 +8,18 @@ import TableHeads from '../Users/TableHeads'
 import ResultData from './ResultData'
 import { ResultHeads } from './result-heads'
 import { useDeleteResult, useGetResults } from '@/queries/result.queries'
+import { useGetTestDirections } from '@/queries/test-direction.queries'
 import { PAGE_URLS } from '@/shared/constants/enums'
 
 export const ResultsTable = () => {
 	const navigate = useNavigate()
-	const { results, refetch, isLoading } = useGetResults()
 
+	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
+	const [directionName, setDirectionName] = useState('')
+	const [isPassed, setIsPassed] = useState('')
+
+	const { results, refetch, isLoading } = useGetResults(directionName, isPassed)
+	const { testDirections } = useGetTestDirections()
 	const { remove } = useDeleteResult()
 
 	const handleDelete = async (id: number | string) => {
@@ -27,12 +33,6 @@ export const ResultsTable = () => {
 
 	const handleInfo = (id: number | string) => {
 		navigate(`${PAGE_URLS.CHALLENGER_INFO}/${id}`)
-	}
-
-	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
-
-	const handleSortOrder = () => {
-		setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
 	}
 
 	const sortedResults = results?.sort((a, b) => {
@@ -49,11 +49,41 @@ export const ResultsTable = () => {
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
-							onChange={handleSortOrder}
+							onChange={() =>
+								setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+							}
 						>
 							<Option value='asc'>По возрастанию</Option>
 							<Option value='desc'>По убыванию</Option>
 						</Select>
+					</div>
+					<div className='flex-grow'>
+						<select
+							className='border w-[200px] text-[14px] border-blue-gray-200 text-[#455A64] h-[40px] outline-none p-2 rounded-md'
+							value={directionName}
+							onChange={e => setDirectionName(e.target.value)}
+						>
+							<option value=''>Все направления</option>
+							{testDirections?.map(td => (
+								<option
+									key={td.id}
+									value={td.directionName}
+								>
+									{td.directionName}
+								</option>
+							))}
+						</select>
+					</div>
+					<div className='flex-grow'>
+						<select
+							className='border w-[200px] text-[14px] border-blue-gray-200 text-[#455A64] h-[40px] outline-none p-2 rounded-md'
+							value={isPassed}
+							onChange={e => setIsPassed(e.target.value)}
+						>
+							<option value=''>Прошел?</option>
+							<option value='true'>Да</option>
+							<option value='false'>Нет</option>
+						</select>
 					</div>
 				</div>
 			</div>

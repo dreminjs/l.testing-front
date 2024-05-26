@@ -6,15 +6,23 @@ import { IUser, TypeUserForm } from '@/types/user.types'
 import { UserService } from '@/services/user.service'
 import { QUERY_KEYS } from '@/shared/constants/enums'
 
-export const useGetUsers = () => {
+export const useGetUsers = (
+	maritalStatus?: string,
+	children?: string,
+	militaryId?: string
+) => {
 	const {
 		data: users,
 		isLoading,
 		refetch
 	} = useQuery({
-		queryKey: [QUERY_KEYS.USERS],
+		queryKey: [QUERY_KEYS.USERS, { maritalStatus, children, militaryId }],
 		queryFn: async () => {
-			const response: AxiosResponse<IUser[]> = await UserService.getAll()
+			const response: AxiosResponse<IUser[]> = await UserService.getAll(
+				maritalStatus,
+				children,
+				militaryId
+			)
 			return response.data
 		}
 	})

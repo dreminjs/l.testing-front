@@ -20,15 +20,18 @@ export const useCreateResult = () => {
 	return { create, isPending }
 }
 
-export const useGetResults = () => {
+export const useGetResults = (maritalStatus?: string, isPassed?: string) => {
 	const {
 		data: results,
 		isLoading,
 		refetch
 	} = useQuery({
-		queryKey: [QUERY_KEYS.RESULTS],
+		queryKey: [QUERY_KEYS.RESULTS, { maritalStatus, isPassed }],
 		queryFn: async () => {
-			const response: AxiosResponse<IResult[]> = await ResultService.getAll()
+			const response: AxiosResponse<IResult[]> = await ResultService.getAll(
+				maritalStatus,
+				isPassed
+			)
 			return response.data
 		}
 	})

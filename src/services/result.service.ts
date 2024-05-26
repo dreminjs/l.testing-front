@@ -7,8 +7,15 @@ export const ResultService = {
 	async create(data: TypeResultForm) {
 		return instance.post<IResult>(SERVICE_URLS.RESULTS, data)
 	},
-	async getAll() {
-		return instance.get<IResult[]>(SERVICE_URLS.RESULTS)
+	async getAll(directionName?: string, isPassed?: string) {
+		const params = new URLSearchParams()
+
+		if (directionName) params.append('directionName', directionName)
+		if (isPassed) params.append('isPassed', isPassed)
+
+		const url = `${SERVICE_URLS.RESULTS}${params.toString() && '?' + params.toString()}`
+
+		return instance.get<IResult[]>(url)
 	},
 
 	async getById(id: string | undefined) {

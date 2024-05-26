@@ -4,8 +4,16 @@ import instance from '@/shared/api/api.instance'
 import { SERVICE_URLS } from '@/shared/constants/enums'
 
 export const UserService = {
-	async getAll() {
-		return instance.get<IUser[]>(SERVICE_URLS.USERS)
+	async getAll(maritalStatus?: string, children?: string, militaryId?: string) {
+		const params = new URLSearchParams()
+
+		if (maritalStatus) params.append('maritalStatus', maritalStatus)
+		if (children) params.append('children', children)
+		if (militaryId) params.append('militaryId', militaryId)
+
+		const url = `${SERVICE_URLS.USERS}${params.toString() && '?' + params.toString()}`
+
+		return instance.get<IUser[]>(url)
 	},
 
 	async getById(id: string | undefined) {

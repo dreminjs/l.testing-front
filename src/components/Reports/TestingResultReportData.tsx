@@ -19,6 +19,7 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 						({
 							id,
 							user,
+
 							completionTime,
 							interviewDate,
 							isPassed,
@@ -37,6 +38,33 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 									>
 										{`${user?.lastName || ''} ${user?.firstName || 'Не указано'}
 										${user?.middleName || ''}`}
+									</Typography>
+								</td>
+								<td className='p-4'>
+									<Typography
+										variant='small'
+										color='blue-gray'
+										className='font-medium'
+									>
+										{user?.maritalStatus}
+									</Typography>
+								</td>
+								<td className='p-4'>
+									<Typography
+										variant='small'
+										color='blue-gray'
+										className='font-medium'
+									>
+										{user?.hasChildren ? 'Есть' : 'Нет'}
+									</Typography>
+								</td>
+								<td className='p-4'>
+									<Typography
+										variant='small'
+										color='blue-gray'
+										className='font-medium'
+									>
+										{user?.isMilitaryId ? 'Есть' : 'Нет'}
 									</Typography>
 								</td>
 								<td className='p-4'>

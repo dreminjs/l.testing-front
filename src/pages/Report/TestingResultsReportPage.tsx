@@ -1,13 +1,16 @@
 import TestingResultsReport from '@/components/Reports/TestingResultsReport'
 
-import WithPageLayout from '@/app/Layout/hoc/WithPageLayout'
+import Header from '@/app/Layout/Header'
 
 const TestingResultsReportPage = () => {
 	return (
-		<div>
-			<TestingResultsReport />
-		</div>
+		<>
+			<Header />
+			<div className='w-full  flex flex-col px-4 mt-10'>
+				<TestingResultsReport />
+			</div>
+		</>
 	)
 }
 
-export default WithPageLayout(TestingResultsReportPage)
+export default TestingResultsReportPage

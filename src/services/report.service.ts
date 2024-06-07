@@ -9,7 +9,9 @@ export const ReportService = {
 		directionName?: string,
 		maritalStatus?: string,
 		children?: string,
-		militaryId?: string
+		militaryId?: string,
+		startDate?: string,
+		endDate?: string
 	) {
 		const params = new URLSearchParams()
 		if (isPassed) params.append('isPassed', isPassed)
@@ -17,9 +19,19 @@ export const ReportService = {
 		if (maritalStatus) params.append('maritalStatus', maritalStatus)
 		if (children) params.append('children', children)
 		if (militaryId) params.append('militaryId', militaryId)
+		if (startDate) params.append('startDate', startDate)
+		if (endDate) params.append('endDate', endDate)
 
 		const url = `${SERVICE_URLS.REPORTS}/get-results${params.toString() && '?' + params.toString()}`
 
 		return instance.get<IResultReport[]>(`${url}`)
+	},
+
+	async getResultsOfDirections(directionName?: string) {
+		const directionParam = directionName ? `?direction=${directionName}` : ''
+
+		return instance.get<IResultReport[]>(
+			`${SERVICE_URLS.REPORTS}/get-results-of-directions${directionParam}`
+		)
 	}
 }

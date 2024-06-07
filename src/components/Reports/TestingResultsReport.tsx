@@ -1,11 +1,13 @@
 import {
 	Button,
 	Card,
+	Input,
 	Option,
 	Select,
 	Typography
 } from '@material-tailwind/react'
-import { useState } from 'react'
+import { formatISO } from 'date-fns'
+import { ChangeEvent, useState } from 'react'
 
 import CustomLoader from '../CustomLoader'
 import TableHeads from '../Users/TableHeads'
@@ -19,17 +21,33 @@ import usePrint from '@/shared/hooks/usePrint'
 const TestingResultsReport = () => {
 	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 	const [directionName, setDirectionName] = useState('')
-	const [isPassed, setIsPassed] = useState('')
+	const [isPassed] = useState('')
 	const [maritalStatus, setMaritalStatus] = useState('')
 	const [hasChildren, setHasChildren] = useState('')
 	const [isMilitaryId, setIsMilitaryId] = useState('')
 	const { testDirections } = useGetTestDirections()
+	const [startDate, setStartDate] = useState('')
+	const [endDate, setEndDate] = useState('')
+
+	const handleStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setStartDate(event.target.value)
+	}
+
+	const handleEndDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setEndDate(event.target.value)
+	}
+
+	const formattedStartDate = startDate && formatISO(new Date(startDate))
+	const formattedEndDate = endDate && formatISO(new Date(endDate))
+
 	const { results, isLoading } = useGetTestingResultsReport(
 		isPassed,
 		directionName,
 		maritalStatus,
 		hasChildren,
-		isMilitaryId
+		isMilitaryId,
+		formattedStartDate,
+		formattedEndDate
 	)
 
 	const handleSortOrder = () => {
@@ -119,6 +137,24 @@ const TestingResultsReport = () => {
 								</option>
 							))}
 						</select>
+					</div>
+					<div>
+						<Input
+							label='Начальная дата'
+							type='date'
+							id='startDate'
+							value={startDate}
+							onChange={handleStartDateChange}
+						/>
+					</div>
+					<div>
+						<Input
+							label='Конечная дата'
+							type='date'
+							id='endDate'
+							value={endDate}
+							onChange={handleEndDateChange}
+						/>
 					</div>
 				</div>
 				<div>

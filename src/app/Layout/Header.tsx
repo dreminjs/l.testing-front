@@ -314,6 +314,13 @@ const Header = () => {
 								>
 									Отчёт по результатам тестирования
 								</MenuItem>
+								<MenuItem
+									onClick={() =>
+										navigate(`${PAGE_URLS.REPORTS}/get-results-of-directions`)
+									}
+								>
+									Отчёт по количеству опрошенных по направлению
+								</MenuItem>
 							</MenuList>
 						</Menu>
 						<ProfileMenu />

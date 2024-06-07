@@ -3,6 +3,7 @@ import RegisterPage from '@/pages/Auth/RegisterPage'
 import HomePage from '@/pages/Home/HomePage'
 import AddManagerPage from '@/pages/Manager/AddManager/AddManagerPage'
 import EditManagerPage from '@/pages/Manager/EditManager/EditManagerPage'
+import ResultsOfDirectionsReportPage from '@/pages/Report/ResultsOfDirectionsReportPage'
 import TestingResultsReportPage from '@/pages/Report/TestingResultsReportPage'
 import EditResultPage from '@/pages/Result/EditResultPage'
 import ResultsPage from '@/pages/Result/ResultsPage'
@@ -91,5 +92,9 @@ export const routeConfig = [
 	{
 		path: `${PAGE_URLS.REPORTS}/get-results`,
 		element: <TestingResultsReportPage />
+	},
+	{
+		path: `${PAGE_URLS.REPORTS}/get-results-of-directions`,
+		element: <ResultsOfDirectionsReportPage />
 	}
 ]

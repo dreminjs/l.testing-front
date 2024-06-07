@@ -10,3 +10,8 @@ export interface IResultReport {
 	user: IUser
 	test: ITest
 }
+
+export interface IReportOfDirection {
+	id: number
+	test: ITest
+}

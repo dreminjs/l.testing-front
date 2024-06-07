@@ -8,7 +8,7 @@ import {
 	Textarea,
 	Typography
 } from '@material-tailwind/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -18,6 +18,7 @@ import CustomLoader from '../CustomLoader'
 
 import { useGetUser, useUpdateUser } from '@/queries/user.queries'
 import useAuth from '@/shared/hooks/useAuth'
+import { EditResumeModal } from '../Resume/EditResumeModel'
 
 const EditChallengerForm = () => {
 	const { id } = useParams()
@@ -47,6 +48,8 @@ const EditChallengerForm = () => {
 		})
 	}, [user, reset])
 
+	const [isModalOpen,setIsModalOpen] = useState(false)
+
 	const handleUpdate = async (id: string | undefined, data: TypeUserForm) => {
 		await update({
 			id,
@@ -55,8 +58,14 @@ const EditChallengerForm = () => {
 		refetch()
 		reset()
 	}
+
+	const handleOpenModal = () => setIsModalOpen(true)
+
+	const handleCloseModal = () => setIsModalOpen(false)
+	
 	if (isLoading) return <CustomLoader />
 	return (
+		<>
 		<Card
 			className=''
 			color='transparent'
@@ -224,13 +233,14 @@ const EditChallengerForm = () => {
 						<span>{errors?.maritalStatus?.message}</span>
 					)}
 
-					<Textarea
-						label='Резюме'
-						size='lg'
-						defaultValue={user?.resume}
-						placeholder={user?.resume}
-						{...register('resume')}
-					/>
+				<Button
+					color='teal'
+					className='mt-6'
+					fullWidth
+					onClick={handleOpenModal}
+				>
+					Изменить резюме
+				</Button>
 				</div>
 
 				<Button
@@ -243,6 +253,11 @@ const EditChallengerForm = () => {
 				</Button>
 			</form>
 		</Card>
+		<EditResumeModal
+			isOpen={isModalOpen}
+			onClose={handleCloseModal}
+		/>
+	</>
 	)
 }
 

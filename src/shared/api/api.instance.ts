@@ -11,7 +11,7 @@ import {
 
 export const instance = axios.create({
 	baseURL: BASE_URL.BASE_URL,
-	headers: { 'Content-Type': 'application/json' }
+	// headers: { 'Content-Type': 'application/json' }
 })
 instance.interceptors.request.use(async config => {
 	const accessToken = await getAccessToken()

@@ -1,12 +1,14 @@
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'
-import { Typography } from '@material-tailwind/react'
-import { FC } from 'react'
+import { Button, Typography } from '@material-tailwind/react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { IUser } from '@/types/user.types'
 
 import { PAGE_URLS } from '@/shared/constants/enums'
 import useAuth from '@/shared/hooks/useAuth'
+import { ResumeInfoModal } from '../Resume/ResumeInfoModal'
+import { MailModal } from '../Mail/MailModal'
 
 interface IUserDataProps {
 	data: IUser[] | undefined
@@ -16,6 +18,33 @@ interface IUserDataProps {
 const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 	const navigate = useNavigate()
 	const { user } = useAuth()
+
+	const [isResumeInfoModalOpen,setIsResumeInfoModalOpen] = useState(false)
+
+	const [isMailModalOpen,setIsMailModalOpen] = useState(false)
+
+	const [userId,setUserId] = useState("")
+
+	const handleOpenResumeInfoModal = (e:any) => {
+		setUserId(e.target.id)
+		setIsResumeInfoModalOpen(true)
+	}
+
+	const handleCloseResumeInfoModal = () => {
+		setUserId("")
+		setIsResumeInfoModalOpen(false)
+	}
+
+	const handleOpenMailModal = (e:any) => {
+		setUserId(e.target.id)
+		setIsMailModalOpen(true)
+	}
+
+	const handleCloseMailModal = () => {
+		setUserId("")
+		setIsMailModalOpen(false)
+	}
+
 	return (
 		<>
 			{!data || data.length === 0
@@ -121,6 +150,18 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 											{isMilitaryId ? 'Есть' : 'Нет'}
 										</Typography>
 									</td>
+									<td className='p-4'>
+										<Button color='teal' onClick={handleOpenResumeInfoModal} id={id.toString()}>Открыть</Button>
+									</td>
+									<td className='p-4'>
+										<Button
+											color='teal'
+											id={id.toString()}
+											onClick={handleOpenMailModal}
+										>
+											Пригласить на Собес
+										</Button>
+									</td>
 									<td className='p-4 flex justify-end items-center gap-3'>
 										<div
 											className='inline-block cursor-pointer'
@@ -142,6 +183,18 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 								</tr>
 							) : null
 					)}
+
+					<ResumeInfoModal
+							userId={userId}
+							isOpen={isResumeInfoModalOpen}
+							onClose={handleCloseResumeInfoModal}
+					/>
+
+					<MailModal
+						userId={userId}
+						isOpen={isMailModalOpen}
+						onClose={handleCloseMailModal}
+					/>
 		</>
 	)
 }

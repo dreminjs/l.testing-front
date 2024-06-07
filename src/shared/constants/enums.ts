@@ -34,7 +34,9 @@ export const enum SERVICE_URLS {
 	QUESTIONS = 'questions',
 	RESULTS = 'results',
 	ANSWERS = 'answers',
-	REPORTS = 'reports'
+	REPORTS = 'reports',
+	RESUME = "resume",
+	MAIL = "mail"
 }
 
 export const enum TOKENS {

@@ -8,7 +8,6 @@ import { IUser } from '@/types/user.types'
 import { PAGE_URLS } from '@/shared/constants/enums'
 import useAuth from '@/shared/hooks/useAuth'
 import { ResumeInfoModal } from '../Resume/ResumeInfoModal'
-import { MailModal } from '../Mail/MailModal'
 
 interface IUserDataProps {
 	data: IUser[] | undefined
@@ -21,8 +20,6 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 
 	const [isResumeInfoModalOpen,setIsResumeInfoModalOpen] = useState(false)
 
-	const [isMailModalOpen,setIsMailModalOpen] = useState(false)
-
 	const [userId,setUserId] = useState("")
 
 	const handleOpenResumeInfoModal = (e:any) => {
@@ -33,16 +30,6 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 	const handleCloseResumeInfoModal = () => {
 		setUserId("")
 		setIsResumeInfoModalOpen(false)
-	}
-
-	const handleOpenMailModal = (e:any) => {
-		setUserId(e.target.id)
-		setIsMailModalOpen(true)
-	}
-
-	const handleCloseMailModal = () => {
-		setUserId("")
-		setIsMailModalOpen(false)
 	}
 
 	return (
@@ -190,11 +177,7 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 							onClose={handleCloseResumeInfoModal}
 					/>
 
-					<MailModal
-						userId={userId}
-						isOpen={isMailModalOpen}
-						onClose={handleCloseMailModal}
-					/>
+
 		</>
 	)
 }

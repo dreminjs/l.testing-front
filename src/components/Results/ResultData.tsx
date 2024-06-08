@@ -3,11 +3,12 @@ import {
 	PencilSquareIcon,
 	TrashIcon
 } from '@heroicons/react/24/solid'
-import { Typography } from '@material-tailwind/react'
+import { Button, Typography } from '@material-tailwind/react'
 import { format } from 'date-fns'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { IResult } from '@/types/result.types'
+import { MailModal } from '../Mail/MailModal'
 
 interface ResultDataProps {
 	data: IResult[] | undefined
@@ -22,6 +23,20 @@ const ResultData: FC<ResultDataProps> = ({
 	onEdit,
 	onInfo
 }) => {
+	const [isMailModalOpen, setIsMailModalOpen] = useState(false)
+
+	const [userId, setUserId] = useState('')
+
+	const handleOpenMailModal = (e: any) => {
+		setUserId(e.target.id)
+		setIsMailModalOpen(true)
+	}
+
+	const handleCloseMailModal = () => {
+		setUserId('')
+		setIsMailModalOpen(false)
+	}
+
 	return (
 		<>
 			{!data || data.length === 0
@@ -105,6 +120,15 @@ const ResultData: FC<ResultDataProps> = ({
 											: 'Не прошёл'}
 									</Typography>
 								</td>
+								<td>
+									<Button
+										color='teal'
+										id={id.toString()}
+										onClick={handleOpenMailModal}
+									>
+										Пригласить на Собес
+									</Button>
+								</td>
 								<td className='p-4 flex justify-end items-center gap-3'>
 									<div
 										className='inline-block cursor-pointer'
@@ -131,6 +155,12 @@ const ResultData: FC<ResultDataProps> = ({
 							</tr>
 						)
 					)}
+
+			<MailModal
+				userId={userId}
+				isOpen={isMailModalOpen}
+				onClose={handleCloseMailModal}
+			/>
 		</>
 	)
 }

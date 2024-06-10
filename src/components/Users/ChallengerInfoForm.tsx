@@ -16,14 +16,16 @@ import { ResumeInfoModal } from '../Resume/ResumeInfoModal'
 
 const ChallengerInfoForm = () => {
 	const { id } = useParams()
+
 	const { user, isLoading } = useGetUser(id)
-	if (isLoading) return <CustomLoader />
 
 	const [isResumeModalOpen,setIsResumeModal] = useState(false)
-
+	
 	const handleOpenResumeModal = () => setIsResumeModal(true)
-
+	
 	const handleCloseResumeModal = () => setIsResumeModal(false)
+
+	if (isLoading) return <CustomLoader />
 
 	return (
 		<>
@@ -73,7 +75,7 @@ const ChallengerInfoForm = () => {
 							variant='h6'
 							color='black'
 						>
-							Наличие детей?:
+							Наличие детей:
 						</Typography>
 						<span className='font-normal'>
 							{user?.hasChildren ? 'Да' : 'Нет'}
@@ -84,7 +86,7 @@ const ChallengerInfoForm = () => {
 							variant='h6'
 							color='black'
 						>
-							Наличие военного билета?:
+							Наличие военного билета:
 						</Typography>
 						<span className='font-normal'>
 							{user?.isMilitaryId ? 'Да' : 'Нет'}

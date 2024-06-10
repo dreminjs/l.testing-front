@@ -35,6 +35,7 @@ export function InputFileUpload({
         {...register("photo")}
         onChange={onChangePhoto}
         type="file"
+        accept="image/*"
       />
     </Button>
   );

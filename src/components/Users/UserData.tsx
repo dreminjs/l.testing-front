@@ -32,6 +32,8 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 		setIsResumeInfoModalOpen(false)
 	}
 
+	console.log(user)
+
 	return (
 		<>
 			{!data || data.length === 0
@@ -139,15 +141,6 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 									</td>
 									<td className='p-4'>
 										<Button color='teal' onClick={handleOpenResumeInfoModal} id={id.toString()}>Открыть</Button>
-									</td>
-									<td className='p-4'>
-										<Button
-											color='teal'
-											id={id.toString()}
-											onClick={handleOpenMailModal}
-										>
-											Пригласить на Собес
-										</Button>
 									</td>
 									<td className='p-4 flex justify-end items-center gap-3'>
 										<div

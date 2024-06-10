@@ -15,7 +15,7 @@ import useAuth from '@/shared/hooks/useAuth.ts'
 export const useLogin = () => {
 	const navigate = useNavigate()
 	const { setUser } = useAuth()
-	const { mutateAsync: login } = useMutation({
+	const { mutateAsync: login,isPending,isError,isSuccess } = useMutation({
 		mutationKey: [`${QUERY_KEYS.LOGIN}`],
 		mutationFn: (data: ILogin) => AuthService.login(data),
 		onSuccess: ({ data }) => {
@@ -26,7 +26,7 @@ export const useLogin = () => {
 			}
 		}
 	})
-	return { login }
+	return { login,logingIsPending:isPending,logingIsError:isError,logingIsSuccess:isSuccess }
 }
 
 export const useRegister = () => {
@@ -39,7 +39,7 @@ export const useRegister = () => {
 export const useChallengerLogin = () => {
 	const navigate = useNavigate()
 	const { setUser } = useAuth()
-	const { mutateAsync: challengerLogin } = useMutation({
+	const { mutateAsync: challengerLogin,isSuccess,isError,isPending } = useMutation({
 		mutationKey: [`${QUERY_KEYS.CHALLENGER_LOGIN}`],
 		mutationFn: (data: IChallengerLogin) => AuthService.challengerLogin(data),
 		onSuccess: ({ data }) => {
@@ -49,7 +49,7 @@ export const useChallengerLogin = () => {
 			}
 		}
 	})
-	return { challengerLogin }
+	return { challengerLogin,isSuccess,isError,isPending }
 }
 
 export const useChallengerRegister = () => {

@@ -1,5 +1,5 @@
 import { Card, Option, Select } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import CustomLoader from '../CustomLoader'
@@ -18,7 +18,7 @@ export const ResultsTable = () => {
 	const [directionName, setDirectionName] = useState('')
 	const [isPassed, setIsPassed] = useState('')
 
-	const { results, refetch, isLoading } = useGetResults(directionName, isPassed)
+	const { results, refetch, isLoading, } = useGetResults(directionName, isPassed)
 	const { testDirections } = useGetTestDirections()
 	const { remove } = useDeleteResult()
 
@@ -100,6 +100,7 @@ export const ResultsTable = () => {
 							onDelete={handleDelete}
 							onEdit={handleEdit}
 							onInfo={handleInfo}
+							refetch={refetch}
 						/>
 					</tbody>
 				</table>

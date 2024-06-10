@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import Modal from '@mui/material/Modal'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useGetResume } from '@/queries/resume.queries'
 
@@ -13,9 +13,8 @@ export const ResumeInfoModal = ({
 	onClose: () => void
 	userId?: string
 }) => {
-	
 	const { data, refetch, isSuccess } = useGetResume(userId)
-
+	
 	useEffect(() => {
 		if (userId) {
 			refetch()
@@ -35,19 +34,23 @@ export const ResumeInfoModal = ({
 				>
 					Резюме
 				</Typography>
-				<div>
-					{data?.photo && (
-						<img
-							src={`http://localhost:8077/${data?.photo}`}
-							className='h-[250px] w-[350px] mb-5 object-cover'
-							alt=''
-						/>
-					)}
-					<p>о себе : {data?.about}</p>
-					<p>возраст : {data?.age} лет</p>
-					<p>опыт : {data?.experience}</p>
-					<p>желаемая зп : {data?.desiredSalary} рублей</p>
-				</div>
+				{data?.about ? (
+					<div>
+						{data?.photo && (
+							<img
+								src={`http://localhost:8077/${data?.photo}`}
+								className='h-[250px] w-[350px] mb-5 object-cover'
+								alt=''
+							/>
+						)}
+						<p>о себе : {data?.about}</p>
+						<p>возраст : {data?.age} лет</p>
+						<p>опыт : {data?.experience}</p>
+						<p>желаемая зп : {data?.desiredSalary} рублей</p>
+					</div>
+				) : (
+					<p className='text-center mt-5'>пользователь пока еще не добавил резюме :(</p>
+				)}
 			</Box>
 		</Modal>
 	)

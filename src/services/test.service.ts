@@ -7,8 +7,8 @@ export const TestService = {
 	async create(data: TypeTestForm) {
 		return instance.post<ITest>(SERVICE_URLS.TESTS, data)
 	},
-	async getAll(name?: string) {
-		const url = name ? `${SERVICE_URLS.TESTS}?name=${name}` : SERVICE_URLS.TESTS
+	async getAll(name?: string,isAdmin?:boolean) {
+		const url = name ? `${SERVICE_URLS.TESTS}?name=${name}&isAdmin=${isAdmin}` : `${SERVICE_URLS.TESTS}?isAdmin=${isAdmin}`
 		return instance.get<ITest[]>(url)
 	},
 

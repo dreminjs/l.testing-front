@@ -6,13 +6,14 @@ export interface ITest {
 	id: number
 	title: string
 	accessTime: Date
-	timeLimit: Date
+	timeLimit: number // minutes
 	attemptLimit: number
 	thresholdValue: number
 	directionId: number
 	testDirection: ITestDirection
 	results: IResult[]
-	questions: IQuestion[]
+	questions: IQuestion[],
+	photo: FileList
 }
 
 export type TypeTestForm = Omit<ITest, 'id'>

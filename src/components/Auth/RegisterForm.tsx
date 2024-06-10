@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import {
 	Button,
 	Card,
@@ -10,16 +11,52 @@ import {
 	Select,
 	Typography
 } from '@material-tailwind/react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import * as yup from 'yup'
 
 import { IChallengerRegister } from '@/types/auth.types'
 
 import { useChallengerRegister } from '@/queries/auth.queries'
+import { ResponseMessageModal } from '@/shared/components/ResponseMessageModal'
 import { PAGE_URLS } from '@/shared/constants/enums'
 
 const RegisterForm = () => {
 	const navigate = useNavigate()
+
+	const schema = yup.object({
+		lastName: yup
+			.string()
+			.required('Это поле обязательно для заполнения')
+			.matches(/^[^0-9]*$/, 'Поле не должно содержать цифры')
+			.max(100, 'максимум 100 символов!'),
+		firstName: yup
+			.string()
+			.required('Это поле обязательно для заполнения')
+			.matches(/^[^0-9]*$/, 'Поле не должно содержать цифры')
+			.max(100, 'максимум 100 символов!'),
+		middleName: yup
+			.string()
+			.required('Это поле обязательно для заполнения')
+			.matches(/^[^0-9]*$/, 'Поле не должно содержать цифры')
+			.required('Это поле обязательно для заполнения')
+			.max(100, 'максимум 100 символов!'),
+		email: yup
+			.string()
+			.required('Это поле обязательно для заполнения')
+			.max(100, 'максимум 100 символов!')
+			.email('введите ваш email!'),
+		phoneNumber: yup
+			.string()
+			.required('Поле обязательно для заполнения')
+			.min(6, 'Минимальная длина 6 символов')
+			.max(20, 'Максимальная длина 20 символов')
+			.matches(
+				/^\+375\d{2}\d{3}\d{2}\d{2}$/,
+				'Введите номер в формате +375 ## ### ## ##'
+			)
+	})
 
 	const {
 		register,
@@ -27,189 +64,183 @@ const RegisterForm = () => {
 		reset,
 		formState: { errors },
 		control
-	} = useForm<IChallengerRegister>({ mode: 'onChange' })
+	} = useForm<any>({ mode: 'onChange', resolver: yupResolver(schema) })
 
-	const { mutateAsync } = useChallengerRegister()
+	const { mutateAsync, isSuccess, isError,isPending } = useChallengerRegister()
 
 	const handleRegister = async (data: IChallengerRegister) => {
 		await mutateAsync(data)
 		reset()
-		navigate(PAGE_URLS.HOME)
 	}
 
+	const [isModalOpen, setIsModalOpen] = useState(false)
+
+	const [message,setMessage] = useState("")
+
+	useEffect(() => {
+		if (isSuccess) {
+			setMessage("Вы успешно зарегистрованны!!")
+			setIsModalOpen(true)
+			const timoutId = setTimeout(() => {
+				setMessage("")
+				setIsModalOpen(false)
+				navigate(PAGE_URLS.HOME)
+			}, 3000)	
+
+			return () => clearTimeout(timoutId)
+		}
+		if(isError){
+			setMessage("такой номер или email уже зарегистрованны!")
+			setIsModalOpen(true)
+			const timoutId = setTimeout(() => {
+				setMessage("")
+				setIsModalOpen(false)
+			}, 3000)	
+
+			return () => clearTimeout(timoutId)
+		}
+	}, [isError,isSuccess])
+
 	return (
-		<Card className='w-full sm:w-5/6 md:w-1/2 lg:w-1/3 xl:w-96 mx-auto'>
-			<CardHeader
-				variant='gradient'
-				color='indigo'
-				className='mb-4 grid h-28 place-items-center'
-			>
-				<Typography
-					variant='h3'
-					color='white'
+		<>
+			<Card className='w-full sm:w-5/6 md:w-1/2 lg:w-1/3 xl:w-96 mx-auto'>
+				<CardHeader
+					variant='gradient'
+					color='indigo'
+					className='mb-4 grid h-28 place-items-center'
 				>
-					Регистрация
-				</Typography>
-			</CardHeader>
-			<form onSubmit={handleSubmit(handleRegister)}>
-				<CardBody className='flex flex-col gap-4 p-4'>
-					<Input
-						label='Фамилия'
-						size='lg'
-						{...register('lastName', {
-							required: true,
-							minLength: {
-								value: 3,
-								message: 'Минимальная длина 3 символа'
-							},
-							maxLength: {
-								value: 30,
-								message: 'Максимальная длина 30 символов'
-							}
-						})}
-					/>
-					{errors.lastName && (
-						<span className='text-base'>Обязательное поле</span>
-					)}
-					<Input
-						label='Имя'
-						size='lg'
-						{...register('firstName', {
-							required: true,
-							minLength: {
-								value: 3,
-								message: 'Минимальная длина 3 символа'
-							},
-							maxLength: {
-								value: 30,
-								message: 'Максимальная длина 30 символов'
-							}
-						})}
-					/>
-					{errors.firstName && (
-						<span className='text-base'>Обязательное поле</span>
-					)}
-					<Input
-						label='Отчество'
-						size='lg'
-						{...register('middleName', { required: false })}
-					/>
-					{errors.middleName && (
-						<span className='text-sm'>Обязательное поле</span>
-					)}
-					<Input
-						label='Email'
-						size='lg'
-						{...register('email', {
-							required: true,
-							minLength: {
-								value: 3,
-								message: 'Минимальная длина 3 символа'
-							},
-							maxLength: {
-								value: 30,
-								message: 'Максимальная длина 30 символов'
-							}
-						})}
-					/>
-					{errors.email && <span className='text-sm'>Обязательное поле</span>}
-					<Input
-						label='Номер телефона'
-						size='lg'
-						placeholder='+375 (29) 999-99-99'
-						{...register('phoneNumber', {
-							required: {
-								value: true,
-								message: 'Поле обязательно для заполнения'
-							},
-							minLength: {
-								value: 6,
-								message: 'Минимальная длина 6 символов'
-							},
-							maxLength: {
-								value: 20,
-								message: 'Максимальная длина 20 символов'
-							},
-							pattern: {
-								value: /^\+375\d{2}\d{3}\d{2}\d{2}$/,
-								message: 'Введите номер в формате +375 ## ### ## ##'
-							}
-						})}
-					/>
-					{errors.phoneNumber && (
-						<span className='text-sm'>Обязательное поле</span>
-					)}
-
-					<Controller
-						control={control}
-						name='maritalStatus'
-						rules={{ required: 'Обязательное поле' }}
-						render={({
-							field: { onChange, value, ...field },
-							fieldState: { error }
-						}) => (
-							<Select
-								{...field}
-								value={String(value)}
-								label='Выберите семейное положение'
-								onChange={onChange}
-								error={!!error}
-							>
-								<Option value='Никогда не состоял (-а)'>
-									Никогда не состоял (-а)
-								</Option>
-								<Option value='Состоит в зарегистрированном браке'>
-									Состоит в зарегистрированном браке
-								</Option>
-								<Option value='Состоит в незарегистрированном браке'>
-									Состоит в незарегистрированном браке
-								</Option>
-								<Option value='Вдова (вдовец)'>Вдова (вдовец)</Option>
-								<Option value='Разведен (-а)'>Разведен (-а)</Option>
-								<Option value='Разошёлся (разошлась)'>
-									Разошёлся (разошлась)
-								</Option>
-							</Select>
-						)}
-					/>
-					{errors.maritalStatus && (
-						<span className='text-sm'>Обязательное поле</span>
-					)}
-					<div className=''>
-						<Checkbox
-							color='indigo'
-							label='Наличие детей?'
-							{...register('hasChildren')}
-						/>
-						<Checkbox
-							color='indigo'
-							label='Наличие военного билета?'
-							{...register('isMilitaryId')}
-						/>
-					</div>
-				</CardBody>
-				<CardFooter className='pt-0 p-4'>
-					<Button
-						color='indigo'
-						variant='gradient'
-						fullWidth
-						type='submit'
+					<Typography
+						variant='h3'
+						color='white'
 					>
-						Зарегистрироваться
-					</Button>
+						Регистрация
+					</Typography>
+				</CardHeader>
+				<form onSubmit={handleSubmit(handleRegister)}>
+					<CardBody className='flex flex-col gap-4 p-4'>
+						<Input
+							label='Фамилия'
+							size='lg'
+							{...register('lastName')}
+						/>
+						{errors.lastName && (
+							<span className='text-sm'>{errors.lastName.message}</span>
+						)}
+						<Input
+							label='Имя'
+							size='lg'
+							{...register('firstName')}
+						/>
+						{errors.firstName && (
+							<span className='text -sm'>{errors.firstName.message}</span>
+						)}
+						<Input
+							label='Отчество'
+							size='lg'
+							{...register('middleName', { required: false })}
+						/>
+						{errors.middleName && (
+							<span className='text-sm'>{errors.middleName.message}</span>
+						)}
+						<Input
+							label='Email'
+							size='lg'
+							{...register('email')}
+						/>
+						{errors.email && (
+							<span className='text-sm'>{errors.email.message}</span>
+						)}
+						<Input
+							label='Номер телефона'
+							size='lg'
+							placeholder='+375 (29) 999-99-99'
+							{...register('phoneNumber')}
+						/>
+						{errors.phoneNumber && (
+							<span className='text-sm'>{errors.phoneNumber.message}</span>
+						)}
 
-					<div className='mt-6 flex justify-center text-sm'>
-						<span>Уже зарегистрированы?</span>
-						<span
-							className='ml-1 font-bold cursor-pointer text-indigo-600'
-							onClick={() => navigate(`${PAGE_URLS.LOGIN}`, { replace: true })}
+						<Controller
+							control={control}
+							name='maritalStatus'
+							rules={{ required: 'Обязательное поле' }}
+							render={({
+								field: { onChange, value, ...field },
+								fieldState: { error }
+							}) => (
+								<Select
+									{...field}
+									value={String(value)}
+									label='Выберите семейное положение'
+									onChange={onChange}
+									error={!!error}
+								>
+									<Option value='Никогда не состоял (-а)'>
+										Никогда не состоял (-а)
+									</Option>
+									<Option value='Состоит в зарегистрированном браке'>
+										Состоит в зарегистрированном браке
+									</Option>
+									<Option value='Состоит в незарегистрированном браке'>
+										Состоит в незарегистрированном браке
+									</Option>
+									<Option value='Вдова (вдовец)'>Вдова (вдовец)</Option>
+									<Option value='Разведен (-а)'>Разведен (-а)</Option>
+									<Option value='Разошёлся (разошлась)'>
+										Разошёлся (разошлась)
+									</Option>
+								</Select>
+							)}
+						/>
+						{errors.maritalStatus && (
+							<span className='text-sm'>Обязательное поле</span>
+						)}
+						<div className=''>
+							<Checkbox
+								color='indigo'
+								label='Наличие детей?'
+								{...register('hasChildren')}
+							/>
+							<Checkbox
+								color='indigo'
+								label='Наличие военного билета?'
+								{...register('isMilitaryId')}
+							/>
+						</div>
+					</CardBody>
+					<CardFooter className='pt-0 p-4'>
+						<Button
+							color='indigo'
+							variant='gradient'
+							fullWidth
+							type='submit'
 						>
-							Авторизация
-						</span>
-					</div>
-				</CardFooter>
-			</form>
-		</Card>
+							Зарегистрироваться
+						</Button>
+
+						<div className='mt-6 flex justify-center text-sm'>
+							<span>Уже зарегистрированы?</span>
+							<span
+								className='ml-1 font-bold cursor-pointer text-indigo-600'
+								onClick={() =>
+									navigate(`${PAGE_URLS.LOGIN}`, { replace: true })
+								}
+							>
+								Авторизация
+							</span>
+						</div>
+					</CardFooter>
+				</form>
+			</Card>
+			<ResponseMessageModal
+				isOpen={isModalOpen}
+				onCloseModal={() => setIsModalOpen(false)}
+				message={message}
+				isError={isError}
+				isSuccess={isSuccess}
+				isLoading={isPending}
+			/>
+		</>
 	)
 }
 

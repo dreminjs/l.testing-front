@@ -21,7 +21,13 @@ const TestComponent = () => {
 	const handleSortOrder = () => {
 		setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
 	}
-	const { tests, refetch, isLoading } = useGetTests(directionName)
+
+	const { tests, refetch, isLoading } = useGetTests(
+		user,
+		directionName,
+		user?.roleId !== 2
+	)
+
 	const sortedTests = tests?.sort((a, b) => {
 		if (a.title < b.title) return sortOrder === 'asc' ? -1 : 1
 		if (a.title > b.title) return sortOrder === 'asc' ? 1 : -1
@@ -51,8 +57,8 @@ const TestComponent = () => {
 							value={sortOrder}
 							onChange={handleSortOrder}
 						>
-							<Option value='asc'>По возрастанию</Option>
-							<Option value='desc'>По убыванию</Option>
+							<Option value='asc'>От А до Я</Option>
+							<Option value='desc'>От Я до А</Option>
 						</Select>
 					</div>
 					<div className='flex-grow'>

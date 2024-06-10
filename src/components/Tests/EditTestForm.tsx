@@ -30,15 +30,13 @@ import {
 } from '@/queries/question.queries'
 import { useGetTestDirections } from '@/queries/test-direction.queries'
 import { useGetTest, useUpdateTest } from '@/queries/test.queries'
+import { InputFileUpload } from '@/shared/components/InputUploadFile'
 
 const EditTestForm = () => {
-	//main
 	const { id } = useParams()
 
-	//test direction
 	const { testDirections } = useGetTestDirections()
 
-	//test
 	const { test, refetch, isLoading } = useGetTest(id)
 	const { update } = useUpdateTest()
 
@@ -57,14 +55,32 @@ const EditTestForm = () => {
 		id: string | undefined,
 		data: TypeTestForm
 	) => {
+
+		console.log(data.photo)
+
+		const formData = new FormData()
+
+		formData.append('accessTime', new Date().toISOString())
+
+		formData.append('attemptLimit', String(data.attemptLimit))
+
+		formData.append('thresholdValue', String(data.thresholdValue))
+
+		formData.append('directionId', String(data.directionId))
+
+		formData.append('timeLimit', String(data.timeLimit))
+
+		formData.append('questions', JSON.stringify(data.questions))
+
+		formData.append('title', data.title)
+
+		formData.append('testDirection', JSON.stringify(data.testDirection))
+
+		formData.append('photo', data.photo[0])
+
 		await update({
 			id,
-			data: {
-				...data,
-				directionId: Number(data.directionId),
-				thresholdValue: Number(data.thresholdValue),
-				attemptLimit: Number(data.attemptLimit)
-			}
+			data: formData
 		})
 	}
 	useEffect(() => {
@@ -73,18 +89,11 @@ const EditTestForm = () => {
 				...test,
 				directionId: test.directionId,
 				timeLimit: test.timeLimit
-					? format(new Date(test.timeLimit), "yyyy-MM-dd'T'HH:mm")
-					: // format(new Date(test.timeLimit), 'mm:ss')
-						undefined
 			}
 			updateTestReset(formattedTest as any)
 		}
 	}, [test, updateTestReset])
 
-	// test content
-	// const { create: createContent } = useCreateTestContent()
-
-	//question
 	const { remove: removeQuestion } = useDeleteQuestion()
 
 	const { create: createQuestion } = useCreateQuestion()
@@ -105,6 +114,7 @@ const EditTestForm = () => {
 		// data: TypeQuestionForm & TypeTestContentForm
 		data: TypeQuestionForm
 	) => {
+
 		await createQuestion({
 			...data,
 			testId: Number(id)
@@ -121,17 +131,21 @@ const EditTestForm = () => {
 	const {
 		handleSubmit: submitAnswer,
 		register: answerRegister,
-		reset: answerReset
-		// formState: { errors: answerErrors }
+		reset: answerReset,
+		formState: { errors: answerErrors }
 	} = useForm<TypeAnswerForm>()
+
 	const { create: createAnswer } = useCreateAnswer()
+
 	const { remove: removeAnswer } = useDeleteAnswer()
+
 	const handleCreateAnswer = async (
 		questionId: number | undefined,
 		data: TypeAnswerForm
 	) => {
 		await createAnswer({
-			...data,
+			content: data.content,
+			isCorrect:data.isCorrect,
 			questionId: Number(questionId)
 		})
 		// const answerResponse = await createAnswer({
@@ -151,7 +165,21 @@ const EditTestForm = () => {
 
 	const [open, setOpen] = useState(0)
 
+	const [photo, setPhoto] = useState(null)
+
+	const handleChangePhoto = (e: any) => {
+		const file = e.target.files[0]
+		if (file) {
+			const reader: any = new FileReader()
+			reader.onload = () => {
+				setPhoto(reader.result)
+			}
+			reader.readAsDataURL(file)
+		}
+	}
+
 	const handleOpen = (value: number) => setOpen(open === value ? 0 : value)
+
 	if (isLoading) return <CustomLoader />
 
 	return (
@@ -195,6 +223,26 @@ const EditTestForm = () => {
 									)}
 								/>
 
+								{photo && (
+									<img
+										className='h-[250px] w-[350px] block mx-auto border-2 h-full object-cover'
+										src={photo}
+										alt=''
+									/>
+								)}
+								{!photo && test?.photo && (
+									<img
+										className='h-[250px] w-[350px] block mx-auto border-2 h-full object-cover'
+										src={`http://localhost:8077/${test?.photo}`}
+										alt=''
+									/>
+								)}
+								<InputFileUpload
+									register={updateTestRegister}
+									onChangePhoto={handleChangePhoto}
+								/>
+								{answerErrors.photo && answerErrors?.photo?.message}
+
 								<Input
 									label='Название теста'
 									size='lg'
@@ -226,8 +274,8 @@ const EditTestForm = () => {
 									{...updateTestRegister('timeLimit', {
 										required: { message: 'Обязательное поле', value: true }
 									})}
-									type='datetime-local'
-									label='Выберите время на прохождение'
+									type='text'
+									label='Напишите кол-во минут для прохождения'
 									size='lg'
 								/>
 								{updateTestErrors.timeLimit &&

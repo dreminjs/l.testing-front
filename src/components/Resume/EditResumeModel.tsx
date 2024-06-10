@@ -11,7 +11,7 @@ import {
 import { Box,Input as InputFile } from '@mui/material'
 import Modal from '@mui/material/Modal'
 import { useForm } from 'react-hook-form'
-import { InputFileUpload } from './InputUploadFile'
+import { InputFileUpload } from '@/shared/components/InputUploadFile'
 import { useEffect, useState } from 'react'
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -39,9 +39,9 @@ export const EditResumeModal = ({
 
 	const schema = yup.object({
 		about:yup.string().required("Расскажите о вас!").min(3,"минимально 3 символа!!").max(250,"максимально 250 символов!"),
-		age:yup.number().positive().integer().required("Введите возраст!").min(1,"минимально 1 символ!"),
-		desiredSalary:yup.number().positive().integer().required("Введите желаемую зп!"),
-		experience:yup.string(),
+		age:yup.number().positive("возраст может быть только больше 0").required("Введите возраст!").min(2,"минимально 2 символа!").moreThan(15,"вам должно быть не меньше 16!"),
+		desiredSalary:yup.number().positive("вы хотите нам платить? :)").integer().required("Введите желаемую зп!"),
+		experience:yup.string().required("расскажите о своем опыте!"),
 		photo:yup.mixed()
 		.notRequired()
 		.test("fileSize", "файл слишком большой!", (value: any) => {
@@ -96,13 +96,13 @@ export const EditResumeModal = ({
 			open={isOpen}
 			onClose={onClose}
 		>
-			<Box className={`bg-white w-1/2 mx-auto my-[55px] p-5 rounded-xl`}>
+			<Box className={`bg-white w-1/2 mx-auto  p-5 rounded-xl mt-5`}>
 				<Typography
 					variant='h4'
 					color='blue-gray'
 					className='text-center'
 				>
-					Резюме
+					{data?.about ? "Изменить резюме" : "Добавить резюме"}
 				</Typography>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
@@ -122,6 +122,7 @@ export const EditResumeModal = ({
 							size='md'
 							defaultValue={''}
 							placeholder={''}
+							type='number'
 							{...register('age')}
 						/>
 						{errors.age && <span>{errors?.age?.message}</span>}
@@ -130,6 +131,7 @@ export const EditResumeModal = ({
 							size='md'
 							defaultValue={''}
 							placeholder={''}
+							type='number'
 							{...register('desiredSalary')}
 						/>
 						{errors.desiredSalary && (
@@ -145,7 +147,7 @@ export const EditResumeModal = ({
 						{errors.experience && <span>{errors?.experience?.message}</span>}
 						{
 
-							photo ? <img className='h-[250px] w-[350px]' src={photo} alt="" /> : data?.photo && <img className='h-[250px] w-[350px]' src={`http://localhost:8077/${data?.photo}`} alt="photo" />
+							photo ? (<img className='h-[250px] w-[350px]' src={photo} alt="" />) : data?.photo && <img className='h-[250px] w-[350px]' src={`http://localhost:8077/${data?.photo}`} alt="photo" />
 						}
 						<InputFileUpload
 							onChangePhoto={handleChangePhoto}

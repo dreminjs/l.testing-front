@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom'
 import { TypeResultForm } from '@/types/result.types'
 
 import CustomLoader from '../CustomLoader'
-
 import { useCreateResult } from '@/queries/result.queries'
 import { useGetTest } from '@/queries/test.queries'
 import useAuth from '@/shared/hooks/useAuth'
@@ -19,7 +18,6 @@ const TestPassingForm = () => {
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
 	const [answers, setAnswers] = useState<{ [questionId: string]: string }>({})
 	const [testCompleted, setTestCompleted] = useState(false)
-	const [isPassedState, setIsPassedState] = useState(false)
 
 	const [testResult, setTestResult] = useState({
 		correct: 0,
@@ -69,12 +67,12 @@ const TestPassingForm = () => {
 	const [attemptRate, setAttemptRate] = useState(0)
 
 	const a = userResults?.find(r => r.attemptRate)
-	console.log(a)
+
 	const onSubmit = async (data: TypeResultForm) => {
 		const endTime = new Date()
+		console.log(endTime?.getTime() - startTime.getTime())
 		const duration = startTime ? endTime.getTime() - startTime.getTime() : 0
 		const completionTime = new Date(duration)
-
 		const result = test?.questions?.reduce(
 			(acc, question) => {
 				const answerId = answers[question.id]
@@ -90,28 +88,27 @@ const TestPassingForm = () => {
 		)
 
 		const pointsPerQuestion = test?.thresholdValue / test?.questions.length
+
 		const correctAnswersCount = result?.correct ?? 0
+
 		const score = Math.round(correctAnswersCount * pointsPerQuestion)
 
 		setTestCore(score)
+		
 		setTestResult(prevResult => ({
 			...prevResult,
 			correct: result?.correct ?? 0,
 			incorrect: result?.incorrect ?? 0
 		}))
 
-		if (data.completionTime <= test?.timeLimit && score >= test?.thresholdValue)
-			setIsPassedState(true)
-		else setIsPassedState(false)
-
 		await create({
 			...data,
 			scoreId: score,
-			interviewDate: new Date(),
+			// interviewDate: new Date(),
 			testId: Number(id),
 			completionTime: completionTime,
 			userId: user?.id as number,
-			isPassed: isPassedState,
+			isPassed: duration / 1000 <= (test?.timeLimit * 60) && score >= test?.thresholdValue ? true : false,
 			attemptRate: data.attemptRate ? Number(data.attemptRate) : 0
 		})
 		localStorage.removeItem('testStartTime')

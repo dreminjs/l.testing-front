@@ -10,7 +10,7 @@ import {
 	Typography
 } from '@material-tailwind/react'
 import { ArrowRight } from 'lucide-react'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -20,6 +20,7 @@ import CustomLoader from '../CustomLoader'
 
 import { useGetTestDirections } from '@/queries/test-direction.queries'
 import { useCreateTest } from '@/queries/test.queries'
+import { InputFileUpload } from '@/shared/components/InputUploadFile'
 import { PAGE_URLS } from '@/shared/constants/enums'
 
 const AddTestForm: FC = () => {
@@ -33,17 +34,46 @@ const AddTestForm: FC = () => {
 		formState: { errors }
 	} = useForm<TypeTestForm>()
 
+	const [photo, setPhoto] = useState(null)
+
+	const handleChangePhoto = (e: any) => {
+		const file = e.target.files[0]
+		if (file) {
+			const reader: any = new FileReader()
+			reader.onload = () => {
+				setPhoto(reader.result)
+			}
+			reader.readAsDataURL(file)
+		}
+	}
+
 	const onSubmit: SubmitHandler<TypeTestForm> = async (data: TypeTestForm) => {
-		const test = await create({
-			...data,
-			accessTime: new Date(),
-			attemptLimit: Number(data.attemptLimit),
-			thresholdValue: Number(data.thresholdValue),
-			directionId: Number(data.directionId)
-		})
+		const formData = new FormData()
+
+		formData.append('accessTime', new Date().toISOString())
+
+		formData.append('attemptLimit', String(data.attemptLimit))
+
+		formData.append('thresholdValue', String(data.thresholdValue))
+
+		formData.append('directionId', String(data.directionId))
+
+		formData.append('timeLimit', String(data.timeLimit))
+
+		formData.append('questions', JSON.stringify(data.questions))
+
+		formData.append('title', data.title)
+
+		formData.append('testDirection', JSON.stringify(data.testDirection))
+
+		formData.append('photo', data.photo[0])
+
+		const test = await create(formData)
+
 		if (test && test.id) navigate(`${PAGE_URLS.EDIT_TEST}/${test.id}`)
 	}
 	if (isLoading) return <CustomLoader />
+
 	return (
 		<Card className='w-96 '>
 			<CardHeader
@@ -90,6 +120,20 @@ const AddTestForm: FC = () => {
 						)}
 					/>
 					{errors.directionId && errors?.directionId?.message}
+
+					{photo && (
+						<img
+							className='h-[250px] w-[350px] h-full object-cover'
+							src={photo}
+							alt=''
+						/>
+					)}
+
+					<InputFileUpload
+						register={register}
+						onChangePhoto={handleChangePhoto}
+					/>
+					{errors.photo && errors?.photo?.message}
 					<Input
 						{...register('title', {
 							required: { message: 'Обязательное поле', value: true },
@@ -110,6 +154,7 @@ const AddTestForm: FC = () => {
 						type='number'
 						label='Введите количество баллов для прохождения'
 						min={1}
+						max={10}
 						size='lg'
 					/>
 					{errors.thresholdValue && errors?.thresholdValue?.message}
@@ -117,9 +162,8 @@ const AddTestForm: FC = () => {
 						{...register('timeLimit', {
 							required: { message: 'Обязательное поле', value: true }
 						})}
-						type='datetime-local'
-						label='Выберите время на прохождение'
-						min={new Date().toISOString().slice(0, 16)}
+						type='number'
+						label='сколько минут дано на задание?'
 						size='lg'
 					/>
 					{errors.timeLimit && errors?.timeLimit?.message}

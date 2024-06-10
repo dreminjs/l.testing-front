@@ -3,10 +3,10 @@ import { useMutation } from "@tanstack/react-query"
 
 
 
-export const usePostMail = (userId:string,date:Date | null) => {
+export const usePostMail = (userId:string,resultId:string,date:Date | null) => {
 
     const { mutateAsync:sendMail } = useMutation({
-        mutationFn:() => MailService.sendMail(userId,date)
+        mutationFn:() => MailService.sendMail(userId,resultId,date)
     })
 
     return { sendMail }

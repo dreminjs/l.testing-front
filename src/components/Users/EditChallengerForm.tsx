@@ -165,6 +165,7 @@ const EditChallengerForm = () => {
 						size='lg'
 						defaultValue={user?.phoneNumber}
 						placeholder={user?.phoneNumber}
+						type="tel"
 						{...register('phoneNumber', {
 							required: { message: 'Обязательное поле', value: true },
 							minLength: {
@@ -239,7 +240,7 @@ const EditChallengerForm = () => {
 					fullWidth
 					onClick={handleOpenModal}
 				>
-					Изменить резюме
+					Резюме
 				</Button>
 				</div>
 

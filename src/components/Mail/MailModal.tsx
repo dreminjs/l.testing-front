@@ -7,11 +7,13 @@ import { useState } from 'react'
 export const MailModal = ({
 	isOpen,
 	onClose,
-	userId
+	userId,
+	resultId
 }: {
 	isOpen: boolean
 	onClose: () => void
-	userId: string
+	userId: string,
+	resultId: string
 }) => {
 
     const [date,setDate] = useState(null)
@@ -20,7 +22,7 @@ export const MailModal = ({
         setDate(e.target.value)
     }
 
-    const {sendMail} = usePostMail(userId,date)
+    const {sendMail} = usePostMail(userId,resultId,date)
 
     const submit = () => {
         if(date && userId){

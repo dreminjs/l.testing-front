@@ -60,11 +60,22 @@ const TestingResultsReport = () => {
 		if (a.completionTime > b.completionTime) return sortOrder === 'asc' ? 1 : -1
 		return 0
 	})
+
+	const resetFilters = () => {
+		setSortOrder("asc")
+		setDirectionName("")
+		setMaritalStatus("")
+		setHasChildren("")
+		setIsMilitaryId("")
+		setStartDate("")
+		setEndDate("")
+	}
+
 	if (isLoading) return <CustomLoader />
 	return (
 		<>
-			<div className='flex flex-col-reverse justify-between items-center md:flex-row md:items-end mb-5 md:mb-0'>
-				<div className='flex flex-col mt-4 gap-3 sm:flex-row sm:mt-6 sm:justify-between sm:items-center'>
+			<div className='flex flex-col-reverse justify-between items-center md:flex-row md:items-end mb-5 md:mb-0 mt-[55px] gap-[15px]'>
+				<div className='flex flex-col mt-4 gap-3 sm:flex-row sm:mt-6 sm:justify-between sm:items-center flex-wrap'>
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
@@ -156,6 +167,11 @@ const TestingResultsReport = () => {
 							onChange={handleEndDateChange}
 						/>
 					</div>
+				</div>
+				<div>
+					<Button color='teal' onClick={resetFilters}>
+						Сброс всех фильтров
+					</Button>
 				</div>
 				<div>
 					<Button

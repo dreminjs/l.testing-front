@@ -38,6 +38,7 @@ const ChallengerInfoForm = () => {
 					<Typography
 						variant='h4'
 						color='white'
+						className='text-center'
 					>
 						{`${user?.lastName} ${user?.firstName} ${user?.middleName || ''}`}
 					</Typography>

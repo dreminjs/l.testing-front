@@ -34,6 +34,8 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 	const navigate = useNavigate()
 	const { user } = useAuth()
 
+	// console.log(formatTime(data[0].timeLimit))
+
 	console.log(data)
 
 	return (
@@ -50,6 +52,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 							testDirection,
 							questions,
 							attemptLimit,
+							accessTime,
 							results,
 							photo
 						},
@@ -93,7 +96,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 								) : null}
 								{photo ? (
 									<img
-										className='w-full h-full object-cover'
+										className='w-full object-cover h-[250px]'
 										src={`http://localhost:8077/${photo}`}
 										alt='card-image'
 									/>
@@ -140,7 +143,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 													Пройдено
 												</Button>
 												<div className='flex items-center gap-2'>
-													<Timer color='indigo' /> {format(timeLimit, 'mm:ss')}
+													<Timer color='indigo' /> {formatTime(timeLimit)}
 													<CircleHelp color='indigo' /> {questions?.length || 0}
 												</div>
 											</>
@@ -156,12 +159,18 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 														disabled={
 															results[idx]?.scoreId && attemptLimit === 1
 																? true
-																: false
+																: results.length === attemptLimit
+																	? true
+																	: new Date(accessTime) < new Date()
 														}
 													>
 														{results[idx]?.scoreId && attemptLimit === 1
-															? 'вы прошли'
-															: 'Пройти'}
+															? 'Вы прошли'
+															: results.length === attemptLimit
+																? 'Попытки кончились'
+																: new Date(accessTime) < new Date()
+																	? 'Срок теста кончился'
+																	: 'Пройти'}
 													</Button>
 												}
 
@@ -175,7 +184,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 								) : (
 									<>
 										<div className='flex items-center gap-2'>
-											<Timer color='indigo' /> {format(timeLimit, 'mm:ss')}
+											<Timer color='indigo' /> {formatTime(timeLimit)}
 										</div>
 										<div className='flex items-center gap-2'>
 											<CircleHelp color='indigo' /> {questions?.length || 0}

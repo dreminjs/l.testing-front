@@ -104,7 +104,7 @@ const NavList = () => {
 
 	const navigate = useNavigate()
 	return (
-		<ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center'>
+		<ul className='mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center '>
 			{user?.roleId === 1 ? (
 				<>
 					<Typography
@@ -287,7 +287,7 @@ const Header = () => {
 	}, [])
 
 	return (
-		<Navbar className='mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6'>
+		<Navbar className='mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 fixed z-10'>
 			<div className='relative mx-auto flex items-center justify-between text-blue-gray-900'>
 				<div className='hidden lg:block'>
 					<NavList />

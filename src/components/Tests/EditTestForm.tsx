@@ -184,7 +184,7 @@ const EditTestForm = () => {
 
 	return (
 		<>
-			<div className='flex flex-wrap md:flex-nowrap '>
+			<div className='flex flex-wrap md:flex-nowrap  '>
 				<div className='flex-auto w-full md:w-1/2 p-4'>
 					<Card className='w-full'>
 						<CardHeader

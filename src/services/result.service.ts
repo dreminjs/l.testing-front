@@ -7,11 +7,12 @@ export const ResultService = {
 	async create(data: TypeResultForm) {
 		return instance.post<IResult>(SERVICE_URLS.RESULTS, data)
 	},
-	async getAll(directionName?: string, isPassed?: string) {
+	async getAll(directionName?: string, isPassed?: string,sortedDatesOrder?:string) {
 		const params = new URLSearchParams()
 
 		if (directionName) params.append('directionName', directionName)
 		if (isPassed) params.append('isPassed', isPassed)
+		if(sortedDatesOrder) params.append("sortedDate",sortedDatesOrder)
 
 		const url = `${SERVICE_URLS.RESULTS}${params.toString() && '?' + params.toString()}`
 

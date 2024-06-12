@@ -1,4 +1,4 @@
-import { Card, Option, Select } from '@material-tailwind/react'
+import { Button, Card, Option, Select } from '@material-tailwind/react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,7 +17,6 @@ export const ResultsTable = () => {
 	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 	const [directionName, setDirectionName] = useState('')
 	const [isPassed, setIsPassed] = useState('')
-
 	const { results, refetch, isLoading, } = useGetResults(directionName, isPassed)
 	const { testDirections } = useGetTestDirections()
 	const { remove } = useDeleteResult()
@@ -41,6 +40,12 @@ export const ResultsTable = () => {
 		return 0
 	})
 
+	const resetFilters = () => {
+		setSortOrder("asc")
+		setDirectionName("")
+		setIsPassed("")
+	}
+
 	if (isLoading) return <CustomLoader />
 	return (
 		<>
@@ -49,7 +54,7 @@ export const ResultsTable = () => {
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
-							onChange={() =>
+							onChange={() => 
 								setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
 							}
 						>
@@ -84,6 +89,17 @@ export const ResultsTable = () => {
 							<option value='true'>Да</option>
 							<option value='false'>Нет</option>
 						</select>
+					</div>
+					<div>
+
+					</div>
+					<div>
+						<Button
+						 	color='teal'
+							onClick={resetFilters}
+						 >
+							Сбросить все фильтры
+						</Button>
 					</div>
 				</div>
 			</div>

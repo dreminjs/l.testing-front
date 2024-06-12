@@ -45,6 +45,11 @@ const TestComponent = () => {
 		refetch()
 	}
 
+	const resetFilters = () => {
+		setSortOrder("asc")
+		setDirectionName("")
+	}
+
 	useEffect(() => {}, [directionName])
 
 	if (isLoading) return <CustomLoader />
@@ -61,7 +66,7 @@ const TestComponent = () => {
 							<Option value='desc'>От Я до А</Option>
 						</Select>
 					</div>
-					<div className='flex-grow'>
+					<div className='flex-grow mr-5 '>
 						<select
 							className='border w-[200px] text-[14px] border-blue-gray-200 text-[#455A64] h-[40px] outline-none p-2 rounded-md'
 							value={directionName}
@@ -77,6 +82,11 @@ const TestComponent = () => {
 								</option>
 							))}
 						</select>
+					</div>
+					<div>
+						<Button color='teal' onClick={resetFilters}>
+							Сбросить все фильтры
+						</Button>
 					</div>
 				</div>
 
@@ -99,6 +109,14 @@ const TestComponent = () => {
 					data={sortedTests}
 				/>
 			</div>
+			<br />
+			<br />
+
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
 		</div>
 	)
 }

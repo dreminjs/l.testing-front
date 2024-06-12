@@ -240,7 +240,9 @@ const EditChallengerForm = () => {
 					fullWidth
 					onClick={handleOpenModal}
 				>
-					Резюме
+					{
+						user?.resume?.about ? "Открыть резюме" : "Добавить резюме"
+					}
 				</Button>
 				</div>
 

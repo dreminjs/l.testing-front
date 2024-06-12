@@ -6,7 +6,7 @@ const TestingResultsReportPage = () => {
 	return (
 		<>
 			<Header />
-			<div className='w-full  flex flex-col px-4 mt-10'>
+			<div className='w-full  flex flex-col px-4 mt-5 pb-5'>
 				<TestingResultsReport />
 			</div>
 		</>

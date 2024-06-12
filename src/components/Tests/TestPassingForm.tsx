@@ -72,7 +72,7 @@ const TestPassingForm = () => {
 		const endTime = new Date()
 		console.log(endTime?.getTime() - startTime.getTime())
 		const duration = startTime ? endTime.getTime() - startTime.getTime() : 0
-		const completionTime = new Date(duration)
+		const completionTime = new Date()
 		const result = test?.questions?.reduce(
 			(acc, question) => {
 				const answerId = answers[question.id]
@@ -156,10 +156,10 @@ const TestPassingForm = () => {
 							/>
 							{testScore}/{test?.thresholdValue}
 						</div>
-						<div className='flex items-center gap-2'>
+						{/* <div className='flex items-center gap-2'>
 							<BarChart color='teal' />
 							{attemptRate}
-						</div>
+						</div> */}
 
 						<div className='flex items-center gap-2'>
 							<TimerIcon color='teal' />
@@ -202,7 +202,7 @@ const TestPassingForm = () => {
 			>
 				<div className='flex flex-col'>
 					<div className='flex justify-between items-center'>
-						<label className='mb-2 text-lg font-semibold'>
+						<label className='mb-2 text-lg font-semibold w-[250px]'>
 							{currentQuestion?.content}
 						</label>
 						{currentQuestionIndex + 1}/{test?.questions.length}

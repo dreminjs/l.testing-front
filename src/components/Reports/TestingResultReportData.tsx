@@ -4,6 +4,8 @@ import { FC } from 'react'
 
 import { IResultReport } from '@/types/report.types'
 
+import { formatTime } from '@/shared/utils/formatTime'
+
 interface TestingResultReportDataProps {
 	data: IResultReport[] | undefined
 }
@@ -53,7 +55,7 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{user?.hasChildren ? 'Есть' : 'Нет'}
 									</Typography>
@@ -62,7 +64,7 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{user?.isMilitaryId ? 'Есть' : 'Нет'}
 									</Typography>
@@ -71,7 +73,7 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{test?.testDirection?.directionName}
 									</Typography>
@@ -80,7 +82,7 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{test?.title}
 									</Typography>
@@ -89,7 +91,7 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{`${scoreId} / ${test?.thresholdValue}`}
 									</Typography>
@@ -98,18 +100,20 @@ const TestingResultReportData: FC<TestingResultReportDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
-										{`${format(new Date(completionTime), 'mm:ss')} / ${format(new Date(test?.timeLimit), 'mm:ss')}`}
+										{`${format(new Date(completionTime), 'dd.MM.yyyy')}`}
 									</Typography>
 								</td>
 								<td className='p-4'>
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
-										{format(new Date(interviewDate), 'dd.MM.yyyy')}
+										{interviewDate === null
+											? '❌'
+											: format(new Date(interviewDate), 'dd.MM.yyyy')}
 									</Typography>
 								</td>
 								<td>

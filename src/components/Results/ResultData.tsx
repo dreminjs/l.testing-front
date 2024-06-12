@@ -76,7 +76,7 @@ const ResultData: FC<ResultDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{test?.testDirection?.directionName}
 									</Typography>
@@ -85,7 +85,7 @@ const ResultData: FC<ResultDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{test?.title}
 									</Typography>
@@ -94,7 +94,7 @@ const ResultData: FC<ResultDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
 										{`${scoreId} / ${test?.thresholdValue}`}
 									</Typography>
@@ -103,9 +103,9 @@ const ResultData: FC<ResultDataProps> = ({
 									<Typography
 										variant='small'
 										color='blue-gray'
-										className='font-medium'
+										className='font-medium text-center'
 									>
-										{`${format(new Date(completionTime), 'mm:ss')} / ${formatTime(test?.timeLimit)}`}
+										{`${format(new Date(completionTime), 'dd.MM.yyyy')}`}
 									</Typography>
 								</td>
 								<td className='p-4'>

@@ -20,7 +20,7 @@ export const useCreateResult = () => {
 	return { create, isPending }
 }
 
-export const useGetResults = (maritalStatus?: string, isPassed?: string) => {
+export const useGetResults = (maritalStatus?: string, isPassed?: string,sortedDatesOrder?:string) => {
 	const {
 		data: results,
 		isLoading,
@@ -30,7 +30,8 @@ export const useGetResults = (maritalStatus?: string, isPassed?: string) => {
 		queryFn: async () => {
 			const response: AxiosResponse<IResult[]> = await ResultService.getAll(
 				maritalStatus,
-				isPassed
+				isPassed,
+				sortedDatesOrder
 			)
 			return response.data
 		}

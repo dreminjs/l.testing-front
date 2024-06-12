@@ -44,7 +44,7 @@ const TestDirectionTable = () => {
 	return (
 		<>
 			<div className='flex flex-col-reverse justify-between items-center md:flex-row md:items-end mb-5  md:mb-0'>
-				<div className='flex flex-col mt-4 gap-3 sm:flex-row sm:mt-6 sm:justify-between sm:items-center'>
+				{/* <div className='flex flex-col mt-4 gap-3 sm:flex-row sm:mt-6 sm:justify-between sm:items-center'>
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
@@ -54,7 +54,7 @@ const TestDirectionTable = () => {
 							<Option value='desc'>По убыванию</Option>
 						</Select>
 					</div>
-				</div>
+				</div> */}
 
 				<div>
 					<Button

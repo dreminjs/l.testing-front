@@ -5,7 +5,15 @@ export interface IUser {
 	password?: string
 	login?: string
 	roleId?: number
-	resume?: string
+	resume?: {
+		id: number,
+        photo?: string,
+        age: number,
+        about: string,
+        desiredSalary: number,
+        experience: string,
+        userId: number
+	}
 	email?: string
 	firstName?: string
 	lastName?: string

@@ -35,11 +35,18 @@ const UsersTable = () => {
 		return 0
 	})
 
+	const resetFilters = () => {
+		setSortOrder("asc")
+		setMaritalStatus("")
+		setHasChildren("")
+		setHasMilitaryId("")
+	}
+
 	if (isLoading) return <CustomLoader />
 	return (
 		<>
 			<div className='flex flex-col-reverse justify-between items-center md:flex-row md:items-end mb-5  md:mb-0'>
-				<div className='flex flex-col mt-4 gap-3 sm:flex-row sm:mt-6 sm:justify-between sm:items-center'>
+				<div className='flex flex-col mt-4 gap-3 sm:flex-row sm:mt-6 sm:justify-between sm:items-center flex-wrap'>
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
@@ -47,8 +54,8 @@ const UsersTable = () => {
 								setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
 							}
 						>
-							<Option value='asc'>По возрастанию</Option>
-							<Option value='desc'>По убыванию</Option>
+							<Option value='asc'>от А до Я</Option>
+							<Option value='desc'>от Я до А</Option>
 						</Select>
 					</div>
 					<div>
@@ -98,6 +105,11 @@ const UsersTable = () => {
 							<option value='false'>Нет</option>
 						</select>
 					</div>
+					<div>
+					<Button color='teal' onClick={resetFilters}>
+							Сбросить все фильтры
+					</Button>
+				</div>
 				</div>
 
 				<div>
@@ -108,6 +120,7 @@ const UsersTable = () => {
 						Добавить
 					</Button>
 				</div>
+				
 			</div>
 
 			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto'>

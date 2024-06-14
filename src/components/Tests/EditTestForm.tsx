@@ -55,12 +55,11 @@ const EditTestForm = () => {
 		id: string | undefined,
 		data: TypeTestForm
 	) => {
-
-		console.log(data.photo)
+		console.log(data)
 
 		const formData = new FormData()
 
-		formData.append('accessTime', new Date().toISOString())
+		formData.append('accessTime', new Date(data.accessTime).toISOString())
 
 		formData.append('attemptLimit', String(data.attemptLimit))
 
@@ -83,12 +82,14 @@ const EditTestForm = () => {
 			data: formData
 		})
 	}
+
 	useEffect(() => {
 		if (test) {
 			const formattedTest = {
 				...test,
 				directionId: test.directionId,
-				timeLimit: test.timeLimit
+				timeLimit: test.timeLimit,
+				accessTime: test.accessTime.split('T')[0]
 			}
 			updateTestReset(formattedTest as any)
 		}
@@ -114,7 +115,6 @@ const EditTestForm = () => {
 		// data: TypeQuestionForm & TypeTestContentForm
 		data: TypeQuestionForm
 	) => {
-
 		await createQuestion({
 			...data,
 			testId: Number(id)
@@ -145,7 +145,7 @@ const EditTestForm = () => {
 	) => {
 		await createAnswer({
 			content: data.content,
-			isCorrect:data.isCorrect,
+			isCorrect: data.isCorrect,
 			questionId: Number(questionId)
 		})
 		// const answerResponse = await createAnswer({
@@ -280,6 +280,16 @@ const EditTestForm = () => {
 								/>
 								{updateTestErrors.timeLimit &&
 									updateTestErrors?.timeLimit?.message}
+								<Input
+									{...updateTestRegister('accessTime', {
+										required: { message: 'Обязательное поле', value: true }
+									})}
+									type='date'
+									label='сколько будет доступен тест?'
+									
+									size='lg'
+								/>
+								{updateTestErrors.accessTime && updateTestErrors?.accessTime?.message}
 								<Input
 									{...updateTestRegister('attemptLimit', {
 										required: { message: 'Обязательное поле', value: true }

@@ -50,7 +50,7 @@ const AddTestForm: FC = () => {
 	const onSubmit: SubmitHandler<TypeTestForm> = async (data: TypeTestForm) => {
 		const formData = new FormData()
 
-		formData.append('accessTime', new Date().toISOString())
+		formData.append('accessTime', new Date(data.accessTime).toISOString())
 
 		formData.append('attemptLimit', String(data.attemptLimit))
 
@@ -167,6 +167,16 @@ const AddTestForm: FC = () => {
 						size='lg'
 					/>
 					{errors.timeLimit && errors?.timeLimit?.message}
+					<Input
+						{...register('accessTime', {
+							required: { message: 'Обязательное поле', value: true }
+						})}
+						type='datetime-local'
+						label='сколько будет доступен тест?'
+						min={new Date().toISOString().slice(0, 16)}
+						size='lg'
+					/>
+					{errors.accessTime && errors?.accessTime?.message}
 					<Input
 						{...register('attemptLimit', {
 							required: { message: 'Обязательное поле', value: true }

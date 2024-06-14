@@ -69,7 +69,9 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 								{user?.roleId === 2 &&
 								data?.some(test =>
 									test.results.some(
-										result => result.isPassed === true && result.testId === id
+										result =>
+											(result.isPassed === true && result.testId === id) ||
+												results.length >= 1									
 									)
 								) ? (
 									<div className='absolute top-0 left-0 p-2 flex gap-3'>
@@ -157,19 +159,17 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 														color='indigo'
 														className='mb-5'
 														disabled={
-															results[idx]?.scoreId && attemptLimit === 1
+															results.length === attemptLimit
 																? true
-																: results.length === attemptLimit
-																	? true
-																	: new Date(accessTime) < new Date()
+																: new Date(accessTime) < new Date()
 														}
 													>
-														{results[idx]?.scoreId && attemptLimit === 1
-															? 'Вы прошли'
-															: results.length === attemptLimit
-																? 'Попытки кончились'
-																: new Date(accessTime) < new Date()
-																	? 'Срок теста кончился'
+														{results.length === attemptLimit
+															? 'Попытки закончились'
+															: new Date(accessTime) < new Date()
+																? 'Срок теста закончился'
+																: results.length >= 1
+																	? 'Пройти еще раз'
 																	: 'Пройти'}
 													</Button>
 												}

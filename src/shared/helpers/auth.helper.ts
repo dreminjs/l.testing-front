@@ -12,7 +12,7 @@ export const getAccessToken = async () => {
 
 export const saveTokensToStorage = (accessToken: string) => {
 	Cookies.set(TOKENS.ACCESS_TOKEN, accessToken, {
-		domain: 'localhost',
+		// domain: 'localhost', 
 		sameSite: 'strict',
 		expires: 1
 	})

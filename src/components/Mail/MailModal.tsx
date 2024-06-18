@@ -22,7 +22,7 @@ export const MailModal = ({
         setDate(e.target.value)
     }
 
-    const {sendMail} = usePostMail(userId,resultId,date)
+    const { sendMail } = usePostMail(userId,resultId,date)
 
     const submit = () => {
         if(date && userId){

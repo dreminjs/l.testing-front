@@ -29,7 +29,7 @@ const UsersTable = () => {
 		refetch()
 	}
 
-	const sortedUsers = users?.sort((a, b) => {
+	const sortedUsers = users?.sort((a:any, b:any) => {
 		if (a.lastName < b.lastName) return sortOrder === 'asc' ? -1 : 1
 		if (a.lastName > b.lastName) return sortOrder === 'asc' ? 1 : -1
 		return 0
@@ -50,10 +50,7 @@ const UsersTable = () => {
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
-							onChange={() =>
-								setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-							}
-						>
+							onChange={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Option value='asc'>от А до Я</Option>
 							<Option value='desc'>от Я до А</Option>
 						</Select>
@@ -106,7 +103,7 @@ const UsersTable = () => {
 						</select>
 					</div>
 					<div>
-					<Button color='teal' onClick={resetFilters}>
+					<Button color='teal' onClick={resetFilters} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							Сбросить все фильтры
 					</Button>
 				</div>
@@ -115,15 +112,14 @@ const UsersTable = () => {
 				<div>
 					<Button
 						color='teal'
-						onClick={() => navigate(PAGE_URLS.ADD_MANAGER)}
-					>
+						onClick={() => navigate(PAGE_URLS.ADD_MANAGER)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Добавить
 					</Button>
 				</div>
 				
 			</div>
 
-			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto'>
+			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<table className='w-full min-w-max table-auto text-left'>
 					<thead>
 						<TableHeads data={UserHeads} />

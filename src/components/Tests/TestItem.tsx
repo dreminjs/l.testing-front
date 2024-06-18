@@ -11,7 +11,6 @@ import {
 	CardHeader,
 	Typography
 } from '@material-tailwind/react'
-import { format } from 'date-fns'
 import { CircleHelp, Timer } from 'lucide-react'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -56,16 +55,14 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 							results,
 							photo
 						},
-						idx
+					
 					) => (
 						<Card
 							key={id}
-							className='mt-6 max-w-full flex flex-col'
-						>
+							className='mt-6 max-w-full flex flex-col'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<CardHeader
 								color='blue-gray'
-								className='relative'
-							>
+								className='relative' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}							>
 								{user?.roleId === 2 &&
 								data?.some(test =>
 									test.results.some(
@@ -110,27 +107,25 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 									/>
 								)}
 							</CardHeader>
-							<CardBody className='flex-1'>
+							<CardBody className='flex-1' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 								<Typography
 									variant='h5'
 									color='blue-gray'
-									className='mb-2'
-								>
+									className='mb-2' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}								>
 									{testDirection.directionName}
 								</Typography>
 								<div className='flex flex-col space-y-2'>
 									<Typography
 										className='whitespace-normal break-words'
-										title={title}
-									>
+										title={title} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{title}
 									</Typography>
 								</div>
 							</CardBody>
-							<CardFooter className='pt-0 flex flex-wrap justify-between items-center'>
+							<CardFooter className='pt-0 flex flex-wrap justify-between items-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 								{user?.roleId === 2 ? (
 									<>
-										{data?.some((test, idx) =>
+										{data?.some((test) =>
 											test.results.some(
 												result =>
 													result.isPassed === true && result.testId === id
@@ -138,10 +133,9 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 										) ? (
 											<>
 												<Button
-													disabled
-													color='indigo'
-													className='mb-5'
-												>
+														disabled
+														color='indigo'
+														className='mb-5' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}												>
 													Пройдено
 												</Button>
 												<div className='flex items-center gap-2'>
@@ -153,17 +147,12 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 											<>
 												{
 													<Button
-														onClick={() =>
-															navigate(`${PAGE_URLS.TEST_PASSING}/${id}`)
-														}
-														color='indigo'
-														className='mb-5'
-														disabled={
-															results.length === attemptLimit
+															onClick={() => navigate(`${PAGE_URLS.TEST_PASSING}/${id}`)}
+															color='indigo'
+															className='mb-5'
+															disabled={results.length === attemptLimit
 																? true
-																: new Date(accessTime) < new Date()
-														}
-													>
+																: new Date(accessTime) < new Date()} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}													>
 														{results.length === attemptLimit
 															? 'Попытки закончились'
 															: new Date(accessTime) < new Date()

@@ -59,88 +59,79 @@ const UserData: FC<IUserDataProps> = ({ data, onDelete }) => {
 								>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{login || 'Не указано'}
 										</Typography>
 									</td>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{email || 'Не указано'}
 										</Typography>
 									</td>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{lastName || 'Не указано'}
 										</Typography>
 									</td>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{firstName || 'Не указано'}
 										</Typography>
 									</td>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{middleName || 'Не указано'}
 										</Typography>
 									</td>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{phoneNumber || 'Не указано'}
 										</Typography>
 									</td>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{hasChildren ? 'Есть' : 'Нет'}
 										</Typography>
 									</td>
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{maritalStatus || 'Не указано'}
 										</Typography>
 									</td>
 
 									<td className='p-4'>
 										<Typography
-											variant='small'
-											color='blue-gray'
-											className='font-medium'
-										>
+										variant='small'
+										color='blue-gray'
+										className='font-medium'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}										>
 											{isMilitaryId ? 'Есть' : 'Нет'}
 										</Typography>
 									</td>
 									<td className='p-4'>
-										<Button color='teal' onClick={handleOpenResumeInfoModal} id={id.toString()}>Открыть</Button>
+										<Button color='teal' onClick={handleOpenResumeInfoModal} id={id.toString()}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Открыть</Button>
 									</td>
 									<td className='p-4 flex justify-end items-center gap-3'>
 										<div

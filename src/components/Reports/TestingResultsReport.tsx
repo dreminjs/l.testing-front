@@ -79,8 +79,7 @@ const TestingResultsReport = () => {
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
-							onChange={handleSortOrder}
-						>
+							onChange={handleSortOrder} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Option value='asc'>По возрастанию</Option>
 							<Option value='desc'>По убыванию</Option>
 						</Select>
@@ -155,8 +154,7 @@ const TestingResultsReport = () => {
 							type='date'
 							id='startDate'
 							value={startDate}
-							onChange={handleStartDateChange}
-						/>
+							onChange={handleStartDateChange} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}						/>
 					</div>
 					<div>
 						<Input
@@ -164,31 +162,28 @@ const TestingResultsReport = () => {
 							type='date'
 							id='endDate'
 							value={endDate}
-							onChange={handleEndDateChange}
-						/>
+							onChange={handleEndDateChange} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}						/>
 					</div>
 				</div>
 				<div>
-					<Button color='teal' onClick={resetFilters}>
+					<Button color='teal' onClick={resetFilters} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						Сброс всех фильтров
 					</Button>
 				</div>
 				<div>
 					<Button
 						color='teal'
-						onClick={handlePrint}
-					>
+						onClick={handlePrint} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Печать
 					</Button>
 				</div>
 			</div>
 
-			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto'>
+			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<div ref={printRef}>
 					<Typography
 						className='mb-4'
-						variant='h4'
-					>
+						variant='h4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Отчет по результатам тестирования
 					</Typography>
 					<table className='w-full min-w-max table-auto text-left'>

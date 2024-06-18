@@ -3,7 +3,6 @@ import {
 	Card,
 	CardBody,
 	CardHeader,
-	Textarea,
 	Typography
 } from '@material-tailwind/react'
 import { useParams } from 'react-router-dom'
@@ -29,26 +28,23 @@ const ChallengerInfoForm = () => {
 
 	return (
 		<>
-			<Card className='w-96'>
+			<Card className='w-96'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<CardHeader
 					variant='gradient'
 					color='teal'
-					className='mb-4 grid h-28 place-items-center'
-				>
+					className='mb-4 grid h-28 place-items-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					<Typography
 						variant='h4'
 						color='white'
-						className='text-center'
-					>
+						className='text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						{`${user?.lastName} ${user?.firstName} ${user?.middleName || ''}`}
 					</Typography>
 				</CardHeader>
-				<CardBody className='flex flex-col gap-4'>
+				<CardBody className='flex flex-col gap-4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 					<div className='flex justify-between'>
 						<Typography
 							variant='h6'
-							color='black'
-						>
+							color='black' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Email:
 						</Typography>
 						<span className='font-normal'>{user?.email}</span>
@@ -56,8 +52,7 @@ const ChallengerInfoForm = () => {
 					<div className='flex justify-between'>
 						<Typography
 							variant='h6'
-							color='black'
-						>
+							color='black' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Номер телефона:
 						</Typography>
 						<span className='font-normal'>{user?.phoneNumber}</span>
@@ -65,8 +60,7 @@ const ChallengerInfoForm = () => {
 					<div className='flex justify-between'>
 						<Typography
 							variant='h6'
-							color='black'
-						>
+							color='black' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Семейное положение:
 						</Typography>
 						<span className='font-normal'>{user?.maritalStatus}</span>
@@ -74,8 +68,7 @@ const ChallengerInfoForm = () => {
 					<div className='flex justify-between'>
 						<Typography
 							variant='h6'
-							color='black'
-						>
+							color='black' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Наличие детей:
 						</Typography>
 						<span className='font-normal'>
@@ -85,8 +78,7 @@ const ChallengerInfoForm = () => {
 					<div className='flex justify-between'>
 						<Typography
 							variant='h6'
-							color='black'
-						>
+							color='black' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Наличие военного билета:
 						</Typography>
 						<span className='font-normal'>
@@ -94,7 +86,7 @@ const ChallengerInfoForm = () => {
 						</span>
 					</div>
 					<div className='flex flex-col'>
-						<Button onClick={handleOpenResumeModal} color='teal'>Открыть резюме</Button>
+						<Button onClick={handleOpenResumeModal} color='teal' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Открыть резюме</Button>
 					</div>
 				</CardBody>
 			</Card>

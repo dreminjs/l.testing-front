@@ -35,13 +35,11 @@ const EditManagerForm = () => {
 	return (
 		<Card
 			color='transparent'
-			shadow={false}
-		>
+			shadow={false}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}		>
 			<Typography
 				variant='h4'
 				color='blue-gray'
-				className='text-center'
-			>
+				className='text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}			>
 				Форма изменения менеджера
 			</Typography>
 
@@ -51,7 +49,7 @@ const EditManagerForm = () => {
 			>
 				<div className='mb-1 flex flex-col gap-6'>
 					<Input
-						label='Логин'
+						onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Логин'
 						size='lg'
 						defaultValue={user?.login}
 						placeholder={user?.login}
@@ -65,12 +63,11 @@ const EditManagerForm = () => {
 								message: 'Максимальная длина 20 символов',
 								value: 20
 							}
-						})}
-					/>
+						})}					/>
 					{errors.login && <span>{errors?.login?.message}</span>}
 
 					<Input
-						label='Пароль'
+						onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Пароль'
 						size='lg'
 						type='password'
 						placeholder='Введите пароль'
@@ -84,16 +81,14 @@ const EditManagerForm = () => {
 								message: 'Максимальная длина 30 символов',
 								value: 20
 							}
-						})}
-					/>
+						})}					/>
 				</div>
 
 				<Button
 					color='teal'
 					className='mt-6'
 					fullWidth
-					type='submit'
-				>
+					type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					Изменить
 				</Button>
 			</form>

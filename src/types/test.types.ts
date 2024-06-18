@@ -13,7 +13,7 @@ export interface ITest {
 	testDirection: ITestDirection
 	results: IResult[]
 	questions: IQuestion[],
-	photo: FileList
+	photo: any
 }
 
 export type TypeTestForm = Omit<ITest, 'id'>

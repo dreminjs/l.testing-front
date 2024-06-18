@@ -60,8 +60,7 @@ const TestComponent = () => {
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
-							onChange={handleSortOrder}
-						>
+							onChange={handleSortOrder} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Option value='asc'>От А до Я</Option>
 							<Option value='desc'>От Я до А</Option>
 						</Select>
@@ -84,7 +83,7 @@ const TestComponent = () => {
 						</select>
 					</div>
 					<div>
-						<Button color='teal' onClick={resetFilters}>
+						<Button color='teal' onClick={resetFilters} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							Сбросить все фильтры
 						</Button>
 					</div>
@@ -94,8 +93,7 @@ const TestComponent = () => {
 					{user?.roleId !== 2 && (
 						<Button
 							color='teal'
-							onClick={() => navigate(PAGE_URLS.ADD_TEST)}
-						>
+							onClick={() => navigate(PAGE_URLS.ADD_TEST)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Добавить
 						</Button>
 					)}

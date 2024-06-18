@@ -1,14 +1,10 @@
 import {
 	Button,
-	Card,
-	Checkbox,
 	Input,
-	Option,
-	Select,
 	Textarea,
 	Typography
 } from '@material-tailwind/react'
-import { Box,Input as InputFile } from '@mui/material'
+import { Box } from '@mui/material'
 import Modal from '@mui/material/Modal'
 import { useForm } from 'react-hook-form'
 import { InputFileUpload } from '@/shared/components/InputUploadFile'
@@ -52,7 +48,6 @@ export const EditResumeModal = ({
 	const {
 		register,
 		handleSubmit,
-		reset,
 		formState: { errors }
 	} = useForm<any>({resolver:yupResolver(schema),values:{
 		about:data?.about,
@@ -89,7 +84,7 @@ export const EditResumeModal = ({
 		update(formData)
 	}
 
-	const {update,isPending} = usePatchResume(String(id))
+	const {update} = usePatchResume(String(id))
 
 	return (
 		<Modal
@@ -100,8 +95,7 @@ export const EditResumeModal = ({
 				<Typography
 					variant='h4'
 					color='blue-gray'
-					className='text-center'
-				>
+					className='text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					{data?.about ? "Изменить резюме" : "Добавить резюме"}
 				</Typography>
 				<form
@@ -110,41 +104,37 @@ export const EditResumeModal = ({
 				>
 					<div className='mb-1 flex flex-col gap-6'>
 						<Textarea
-							label='о себе'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label='о себе'
 							defaultValue={''}
 							placeholder={''}
-							{...register("about")}
-						/>
-						{errors.about && <span>{errors?.about?.message}</span>}
+							{...register("about")}						/>
+						{errors.about && <span>{String(errors?.about?.message)}</span>}
 
 						<Input
-							label='возраст'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='возраст'
 							size='md'
 							defaultValue={''}
 							placeholder={''}
 							type='number'
-							{...register('age')}
-						/>
-						{errors.age && <span>{errors?.age?.message}</span>}
+							{...register('age')}						/>
+						{errors.age && <span>{String(errors?.age?.message)}</span>}
 						<Input
-							label='желаемая зп'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='желаемая зп'
 							size='md'
 							defaultValue={''}
 							placeholder={''}
 							type='number'
-							{...register('desiredSalary')}
-						/>
+							{...register('desiredSalary')}						/>
 						{errors.desiredSalary && (
-							<span>{errors?.desiredSalary?.message}</span>
+							<span>{String(errors?.desiredSalary?.message)}</span>
 						)}
 						<Textarea
-							label='опыт работы'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label='опыт работы'
 							size='md'
 							defaultValue={''}
 							placeholder={''}
-							{...register('experience')}
-						/>
-						{errors.experience && <span>{errors?.experience?.message}</span>}
+							{...register('experience')}						/>
+						{errors.experience && <span>{String(errors?.experience?.message)}</span>}
 						{
 
 							photo ? (<img className='h-[250px] w-[350px]' src={photo} alt="" />) : data?.photo && <img className='h-[250px] w-[350px]' src={`http://localhost:8077/${data?.photo}`} alt="photo" />
@@ -153,14 +143,13 @@ export const EditResumeModal = ({
 							onChangePhoto={handleChangePhoto}
 							register={register}
 						/>
-						{errors.photo && <span>{errors?.photo?.message}</span>}
+						{errors.photo && <span>{String(errors?.photo?.message)}</span>}
 					</div>
 					<Button
 						color='teal'
 						className='mt-6'
 						fullWidth
-						type='submit'
-					>
+						type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Изменить
 					</Button>
 				</form>

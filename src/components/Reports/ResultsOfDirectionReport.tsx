@@ -9,7 +9,6 @@ import { useGetTestDirections } from '@/queries/test-direction.queries'
 import usePrint from '@/shared/hooks/usePrint'
 
 const ResultsOfDirectionReport = () => {
-	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 	const [directionName, setDirectionName] = useState('')
 
 	const { testDirections } = useGetTestDirections()
@@ -65,19 +64,17 @@ const ResultsOfDirectionReport = () => {
 				<div>
 					<Button
 						color='teal'
-						onClick={handlePrint}
-					>
+						onClick={handlePrint} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Печать
 					</Button>
 				</div>
 			</div>
 
-			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto'>
+			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<div ref={printRef}>
 					<Typography
 						className='mb-4'
-						variant='h4'
-					>
+						variant='h4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Отчет по количеству опрошенных по направлению
 					</Typography>
 					<span>Всего опрошенных: {results?.length}</span>

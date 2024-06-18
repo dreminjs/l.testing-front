@@ -11,7 +11,6 @@ import {
 	Select,
 	Typography
 } from '@material-tailwind/react'
-import { format } from 'date-fns'
 import { PlusCircleIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -89,7 +88,7 @@ const EditTestForm = () => {
 				...test,
 				directionId: test.directionId,
 				timeLimit: test.timeLimit,
-				accessTime: test.accessTime.split('T')[0]
+				accessTime: new Date(test.accessTime).toISOString().split('T')[0]
 			}
 			updateTestReset(formattedTest as any)
 		}
@@ -132,7 +131,7 @@ const EditTestForm = () => {
 		handleSubmit: submitAnswer,
 		register: answerRegister,
 		reset: answerReset,
-		formState: { errors: answerErrors }
+		// formState: { errors: answerErrors }
 	} = useForm<TypeAnswerForm>()
 
 	const { create: createAnswer } = useCreateAnswer()
@@ -186,31 +185,28 @@ const EditTestForm = () => {
 		<>
 			<div className='flex flex-wrap md:flex-nowrap  '>
 				<div className='flex-auto w-full md:w-1/2 p-4'>
-					<Card className='w-full'>
+					<Card className='w-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<CardHeader
 							variant='gradient'
 							color='indigo'
-							className='mb-4 grid h-12 place-items-center'
-						>
+							className='mb-4 grid h-12 place-items-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Typography
 								variant='h3'
-								color='white'
-							>
+								color='white' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}							>
 								Изменение теста
 							</Typography>
 						</CardHeader>
 						<form onSubmit={updateTest(data => handleUpdateTest(id, data))}>
-							<CardBody className='flex flex-col gap-4'>
+							<CardBody className='flex flex-col gap-4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 								<Controller
 									control={control}
 									name='directionId'
 									render={({ field: { onChange, value, ...field } }) => (
 										<Select
-											{...field}
-											value={String(value)}
-											label='Выберите направление'
-											onChange={onChange}
-										>
+										placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} {...field}
+										value={String(value)}
+										label='Выберите направление'
+										onChange={onChange}										>
 											{testDirections?.map(({ id, directionName }) => (
 												<Option
 													key={id}
@@ -225,14 +221,14 @@ const EditTestForm = () => {
 
 								{photo && (
 									<img
-										className='h-[250px] w-[350px] block mx-auto border-2 h-full object-cover'
+										className='w-[350px] block mx-auto border-2 h-full object-cover'
 										src={photo}
 										alt=''
 									/>
 								)}
 								{!photo && test?.photo && (
 									<img
-										className='h-[250px] w-[350px] block mx-auto border-2 h-full object-cover'
+										className='w-[350px] block mx-auto border-2 h-full object-cover'
 										src={`http://localhost:8077/${test?.photo}`}
 										alt=''
 									/>
@@ -241,10 +237,10 @@ const EditTestForm = () => {
 									register={updateTestRegister}
 									onChangePhoto={handleChangePhoto}
 								/>
-								{answerErrors.photo && answerErrors?.photo?.message}
+								{updateTestErrors?.photo && updateTestErrors?.photo?.message}
 
 								<Input
-									label='Название теста'
+									onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Название теста'
 									size='lg'
 									{...updateTestRegister('title', {
 										required: { message: 'Обязательное поле', value: true },
@@ -256,59 +252,53 @@ const EditTestForm = () => {
 											message: 'Максимальная длина 255 символа',
 											value: 255
 										}
-									})}
-								/>
+									})}								/>
 								{updateTestErrors.title && updateTestErrors?.title?.message}
 								<Input
-									{...updateTestRegister('thresholdValue', {
-										required: { message: 'Обязательное поле', value: true }
-									})}
-									type='number'
-									label='Введите количество баллов для прохождения'
-									min={1}
-									size='lg'
-								/>
+								onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...updateTestRegister('thresholdValue', {
+									required: { message: 'Обязательное поле', value: true }
+								})}
+								type='number'
+								label='Введите количество баллов для прохождения'
+								min={1}
+								size='lg'								/>
 								{updateTestErrors.thresholdValue &&
 									updateTestErrors?.thresholdValue?.message}
 								<Input
-									{...updateTestRegister('timeLimit', {
-										required: { message: 'Обязательное поле', value: true }
-									})}
-									type='text'
-									label='Напишите кол-во минут для прохождения'
-									size='lg'
-								/>
+								onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...updateTestRegister('timeLimit', {
+									required: { message: 'Обязательное поле', value: true }
+								})}
+								type='text'
+								label='Напишите кол-во минут для прохождения'
+								size='lg'								/>
 								{updateTestErrors.timeLimit &&
 									updateTestErrors?.timeLimit?.message}
 								<Input
-									{...updateTestRegister('accessTime', {
-										required: { message: 'Обязательное поле', value: true }
-									})}
-									type='date'
-									label='сколько будет доступен тест?'
-									
-									size='lg'
-								/>
+								onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...updateTestRegister('accessTime', {
+									required: { message: 'Обязательное поле', value: true }
+								})}
+								type='date'
+								label='сколько будет доступен тест?'
+
+								size='lg'								/>
 								{updateTestErrors.accessTime && updateTestErrors?.accessTime?.message}
 								<Input
-									{...updateTestRegister('attemptLimit', {
-										required: { message: 'Обязательное поле', value: true }
-									})}
-									type='number'
-									label='Введите лимит попыток'
-									min={1}
-									size='lg'
-								/>
+								onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...updateTestRegister('attemptLimit', {
+									required: { message: 'Обязательное поле', value: true }
+								})}
+								type='number'
+								label='Введите лимит попыток'
+								min={1}
+								size='lg'								/>
 								{updateTestErrors.attemptLimit &&
 									updateTestErrors?.attemptLimit?.message}
 							</CardBody>
-							<CardFooter className='pt-0'>
+							<CardFooter className='pt-0' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 								<Button
 									variant='gradient'
 									color='indigo'
 									fullWidth
-									type='submit'
-								>
+									type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}								>
 									Изменить
 								</Button>
 							</CardFooter>
@@ -318,30 +308,27 @@ const EditTestForm = () => {
 
 				{/* Правая колонка */}
 				<div className='flex-auto w-full md:w-1/2 p-4 '>
-					<Card className='w-full'>
+					<Card className='w-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<CardHeader
 							variant='gradient'
 							color='teal'
-							className='mb-4 grid h-12 place-items-center'
-						>
+							className='mb-4 grid h-12 place-items-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Typography
 								variant='h3'
-								color='white'
-							>
+								color='white' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}							>
 								Вопросы и ответы
 							</Typography>
 						</CardHeader>
-						<CardBody className='flex flex-col gap-4'>
+						<CardBody className='flex flex-col gap-4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							<form onSubmit={submitQuestion(handleCreateQuestion)}>
 								<div className='flex gap-4 items-center'>
 									<Input
-										type='text'
+										onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} type='text'
 										label='Введите новый вопрос'
 										size='md'
 										{...questionRegister('content', {
 											required: { message: 'Обязательное поле', value: true }
-										})}
-									/>
+										})}									/>
 
 									<button type='submit'>
 										<PlusCircleIcon className='cursor-pointer' />
@@ -355,7 +342,7 @@ const EditTestForm = () => {
 										onClick={() => handleOpen(index + 1)}
 										className='flex justify-between items-center cursor-pointer'
 									>
-										<Typography variant='h6'>{question?.content}</Typography>
+										<Typography variant='h6' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>{question?.content}</Typography>
 										<div className='flex gap-2'>
 											<TrashIcon
 												color='red'
@@ -371,7 +358,7 @@ const EditTestForm = () => {
 													key={answer.id}
 													className='flex justify-between items-center'
 												>
-													<Typography>
+													<Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 														{answer.content} -{' '}
 														<span className='font-bold'>
 															{answer.isCorrect ? 'Верный' : 'Неверный'}
@@ -393,21 +380,19 @@ const EditTestForm = () => {
 												<div className='flex flex-wrap gap-2 pt-2 items-center'>
 													<div className='flex-grow min-w-0'>
 														<Input
-															{...answerRegister('content', { required: true })}
-															label='Введите вариант ответа'
-															type='text'
-															size='md'
-														/>
+														onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...answerRegister('content', { required: true })}
+														label='Введите вариант ответа'
+														type='text'
+														size='md'														/>
 													</div>
 													<div className='shrink-0'>
 														<Checkbox
-															color='teal'
+															onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} color='teal'
 															label='Верный?'
 															{...answerRegister('isCorrect', {
 																required: false,
 																setValueAs: v => v === 'true'
-															})}
-														/>
+															})}														/>
 													</div>
 													<button
 														type='submit'

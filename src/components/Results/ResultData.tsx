@@ -1,6 +1,5 @@
 import {
 	IdentificationIcon,
-	PencilSquareIcon,
 	TrashIcon
 } from '@heroicons/react/24/solid'
 import { Button, Typography } from '@material-tailwind/react'
@@ -9,7 +8,7 @@ import { FC, useState } from 'react'
 
 import { IResult } from '@/types/result.types'
 import { MailModal } from '../Mail/MailModal'
-import { formatTime } from '@/shared/utils/formatTime'
+
 
 interface ResultDataProps {
 	data: IResult[] | undefined
@@ -22,7 +21,7 @@ interface ResultDataProps {
 const ResultData: FC<ResultDataProps> = ({
 	data,
 	onDelete,
-	onEdit,
+	// onEdit,
 	onInfo,
 	refetch
 }) => {
@@ -63,10 +62,9 @@ const ResultData: FC<ResultDataProps> = ({
 							>
 								<td className='p-4'>
 									<Typography
-										variant='small'
-										color='blue-gray'
-										className='font-medium'
-									>
+									variant='small'
+									color='blue-gray'
+									className='font-medium' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{`${user?.lastName || ''} ${user?.firstName || 'Не указано'}
 										${user?.middleName || ''}`}
 									</Typography>
@@ -74,47 +72,42 @@ const ResultData: FC<ResultDataProps> = ({
 
 								<td className='p-4'>
 									<Typography
-										variant='small'
-										color='blue-gray'
-										className='font-medium text-center'
-									>
+									variant='small'
+									color='blue-gray'
+									className='font-medium text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{test?.testDirection?.directionName}
 									</Typography>
 								</td>
 								<td className='p-4'>
 									<Typography
-										variant='small'
-										color='blue-gray'
-										className='font-medium text-center'
-									>
+									variant='small'
+									color='blue-gray'
+									className='font-medium text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{test?.title}
 									</Typography>
 								</td>
 								<td className='p-4'>
 									<Typography
-										variant='small'
-										color='blue-gray'
-										className='font-medium text-center'
-									>
+									variant='small'
+									color='blue-gray'
+									className='font-medium text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{`${scoreId} / ${test?.thresholdValue}`}
 									</Typography>
 								</td>
 								<td className='p-4'>
 									<Typography
-										variant='small'
-										color='blue-gray'
-										className='font-medium text-center'
-									>
+									variant='small'
+									color='blue-gray'
+									className='font-medium text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{`${format(new Date(completionTime), 'dd.MM.yyyy')}`}
 									</Typography>
 								</td>
 								<td className='p-4'>
 									<Typography
-										variant='small'
-										color='blue-gray'
-										
-										className={'font-medium text-center'}
-									>
+									variant='small'
+									color='blue-gray'
+
+									className={'font-medium text-center'} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{
 											interviewDate === null ? "❌" : format(new Date(interviewDate), 'dd.MM.yyyy')
 										}										
@@ -122,14 +115,11 @@ const ResultData: FC<ResultDataProps> = ({
 								</td>
 								<td className='p-4'>
 									<Typography
-										variant='small'
-										color='blue-gray'
-										className={`font-medium px-2 py-1 inline-block rounded-md ${
-												isPassed
-												? 'bg-green-500 text-white'
-												: 'bg-red-500 text-white'
-										}`}
-									>
+									variant='small'
+									color='blue-gray'
+									className={`font-medium px-2 py-1 inline-block rounded-md ${isPassed
+											? 'bg-green-500 text-white'
+											: 'bg-red-500 text-white'}`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{isPassed
 											? 'Прошёл'
 											: 'Не прошёл'}
@@ -137,12 +127,11 @@ const ResultData: FC<ResultDataProps> = ({
 								</td>
 								<td>
 									<Button
-										color='teal'
-										id={JSON.stringify({userId:user.id,resultId:id})}
-										onClick={handleOpenMailModal}
-										className='block mx-auto'
-										disabled={interviewDate === null ? false : true}
-									>
+									color='teal'
+									id={JSON.stringify({ userId: user.id, resultId: id })}
+									onClick={handleOpenMailModal}
+									className='block mx-auto'
+									disabled={interviewDate === null ? false : true} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}									>
 										{
 											interviewDate === null ? "Пригласить на Собес" : "Приглашен"
 										}

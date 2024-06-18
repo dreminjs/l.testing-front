@@ -103,61 +103,54 @@ const RegisterForm = () => {
 
 	return (
 		<>
-			<Card className='w-full sm:w-5/6 md:w-1/2 lg:w-1/3 xl:w-96 mx-auto'>
+			<Card className='w-full sm:w-5/6 md:w-1/2 lg:w-1/3 xl:w-96 mx-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<CardHeader
 					variant='gradient'
 					color='indigo'
-					className='mb-4 grid h-28 place-items-center'
-				>
+					className='mb-4 grid h-28 place-items-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					<Typography
 						variant='h3'
-						color='white'
-					>
+						color='white' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Регистрация
 					</Typography>
 				</CardHeader>
 				<form onSubmit={handleSubmit(handleRegister)}>
-					<CardBody className='flex flex-col gap-4 p-4'>
+					<CardBody className='flex flex-col gap-4 p-4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<Input
-							label='Фамилия'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Фамилия'
 							size='lg'
-							{...register('lastName')}
-						/>
+							{...register('lastName')}						/>
 						{errors.lastName && (
-							<span className='text-sm'>{errors.lastName.message}</span>
+							<span className='text-sm'>{String(errors.lastName.message)}</span>
 						)}
 						<Input
-							label='Имя'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Имя'
 							size='lg'
-							{...register('firstName')}
-						/>
+							{...register('firstName')}						/>
 						{errors.firstName && (
-							<span className='text -sm'>{errors.firstName.message}</span>
+							<span className='text -sm'>{String(errors.firstName.message)}</span>
 						)}
 						<Input
-							label='Отчество'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Отчество'
 							size='lg'
-							{...register('middleName', { required: false })}
-						/>
+							{...register('middleName', { required: false })}						/>
 						{errors.middleName && (
-							<span className='text-sm'>{errors.middleName.message}</span>
+							<span className='text-sm'>{String(errors.middleName.message)}</span>
 						)}
 						<Input
-							label='Email'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Email'
 							size='lg'
-							{...register('email')}
-						/>
+							{...register('email')}						/>
 						{errors.email && (
-							<span className='text-sm'>{errors.email.message}</span>
+							<span className='text-sm'>{String(errors.email.message)}</span>
 						)}
 						<Input
-							label='Номер телефона'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Номер телефона'
 							size='lg'
 							placeholder='+375 (29) 999-99-99'
-							{...register('phoneNumber')}
-						/>
+							{...register('phoneNumber')}						/>
 						{errors.phoneNumber && (
-							<span className='text-sm'>{errors.phoneNumber.message}</span>
+							<span className='text-sm'>{String(errors.phoneNumber.message)}</span>
 						)}
 
 						<Controller
@@ -169,12 +162,11 @@ const RegisterForm = () => {
 								fieldState: { error }
 							}) => (
 								<Select
-									{...field}
-									value={String(value)}
-									label='Выберите семейное положение'
-									onChange={onChange}
-									error={!!error}
-								>
+								placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} {...field}
+								value={String(value)}
+								label='Выберите семейное положение'
+								onChange={onChange}
+								error={!!error}								>
 									<Option value='Никогда не состоял (-а)'>
 										Никогда не состоял (-а)
 									</Option>
@@ -197,24 +189,21 @@ const RegisterForm = () => {
 						)}
 						<div className=''>
 							<Checkbox
-								color='indigo'
+								onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} color='indigo'
 								label='Наличие детей?'
-								{...register('hasChildren')}
-							/>
+								{...register('hasChildren')}							/>
 							<Checkbox
-								color='indigo'
+								onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} color='indigo'
 								label='Наличие военного билета?'
-								{...register('isMilitaryId')}
-							/>
+								{...register('isMilitaryId')}							/>
 						</div>
 					</CardBody>
-					<CardFooter className='pt-0 p-4'>
+					<CardFooter className='pt-0 p-4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<Button
 							color='indigo'
 							variant='gradient'
 							fullWidth
-							type='submit'
-						>
+							type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Зарегистрироваться
 						</Button>
 

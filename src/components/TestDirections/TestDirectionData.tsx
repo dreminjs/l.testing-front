@@ -26,10 +26,9 @@ const TestDirectionData: FC<ITestDirectionDataProps> = ({
 						>
 							<td className='p-4'>
 								<Typography
-									variant='small'
-									color='blue-gray'
-									className='font-medium'
-								>
+								variant='small'
+								color='blue-gray'
+								className='font-medium' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}								>
 									{directionName || 'Не указано'}
 								</Typography>
 							</td>

@@ -60,13 +60,11 @@ const EditResultForm = () => {
 	return (
 		<Card
 			color='transparent'
-			shadow={false}
-		>
+			shadow={false} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}		>
 			<Typography
 				variant='h4'
 				color='blue-gray'
-				className='text-center font-bold'
-			>
+				className='text-center font-bold' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}			>
 				Форма изменения результата
 			</Typography>
 			<div className='flex flex-col items-center mt-2 justify-center'>
@@ -95,49 +93,45 @@ const EditResultForm = () => {
 			>
 				<div className='mb-1 flex flex-col gap-6'>
 					<Input
-						label='Количество баллов'
+						onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Количество баллов'
 						size='lg'
 						type='number'
 						placeholder='Выберите количество баллов'
 						{...register('scoreId', {
 							required: { message: 'Обязательное поле', value: true }
-						})}
-					/>
+						})}					/>
 					{errors.scoreId && <span>{errors?.scoreId?.message}</span>}
 					<div className='mb-1 flex flex-col gap-6'>
 						<Input
-							label='Количество попыток'
+							onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Количество попыток'
 							size='lg'
 							type='number'
 							placeholder='Выберите количество попыток'
 							{...register('attemptRate', {
 								required: { message: 'Обязательное поле', value: true }
-							})}
-						/>
+							})}						/>
 						{errors.attemptRate && <span>{errors?.attemptRate?.message}</span>}
 					</div>
 
 					<Input
-						label='Время прохождения'
+						onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Время прохождения'
 						size='lg'
 						type='datetime-local'
 						placeholder='Выберите время прохождения'
 						{...register('completionTime', {
 							required: { message: 'Обязательное поле', value: true }
-						})}
-					/>
+						})}					/>
 					{errors.completionTime && (
 						<span>{errors?.completionTime?.message}</span>
 					)}
 					<Input
-						label='Дата собеседования'
+						onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Дата собеседования'
 						size='lg'
 						type='date'
 						placeholder='Выберите дату собеседования'
 						{...register('interviewDate', {
 							required: { message: 'Обязательное поле', value: true }
-						})}
-					/>
+						})}					/>
 					{errors.interviewDate && (
 						<span>{errors?.interviewDate?.message}</span>
 					)}
@@ -147,8 +141,7 @@ const EditResultForm = () => {
 					color='teal'
 					className='mt-6'
 					fullWidth
-					type='submit'
-				>
+					type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					Изменить
 				</Button>
 			</form>

@@ -39,19 +39,17 @@ const ResultsOfDirectionData: FC<DataProps> = ({ data }) => {
 						>
 							<td className='p-4 text-center'>
 								<Typography
-									variant='small'
-									color='blue-gray'
-									className='font-medium'
-								>
+								variant='small'
+								color='blue-gray'
+								className='font-medium'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}								>
 									{directionName}
 								</Typography>
 							</td>
 							<td className='p-4 text-center'>
 								<Typography
-									variant='small'
-									color='blue-gray'
-									className='font-medium'
-								>
+								variant='small'
+								color='blue-gray'
+								className='font-medium'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}								>
 									{count || 0}
 								</Typography>
 							</td>

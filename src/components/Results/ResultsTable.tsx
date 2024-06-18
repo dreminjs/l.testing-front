@@ -1,5 +1,5 @@
 import { Button, Card, Option, Select } from '@material-tailwind/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import CustomLoader from '../CustomLoader'
@@ -54,10 +54,7 @@ export const ResultsTable = () => {
 					<div className='flex-grow'>
 						<Select
 							value={sortOrder}
-							onChange={() => 
-								setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-							}
-						>
+							onChange={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Option value='asc'>По возрастанию</Option>
 							<Option value='desc'>По убыванию</Option>
 						</Select>
@@ -95,16 +92,15 @@ export const ResultsTable = () => {
 					</div>
 					<div>
 						<Button
-						 	color='teal'
-							onClick={resetFilters}
-						 >
+							color='teal'
+							onClick={resetFilters} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						 >
 							Сбросить все фильтры
 						</Button>
 					</div>
 				</div>
 			</div>
 
-			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto'>
+			<Card className='h-full mt-10 w-full rounded-md overflow-x-auto	 overflow-y-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<table className='w-full min-w-max table-auto text-left'>
 					<thead>
 						<TableHeads data={ResultHeads} />

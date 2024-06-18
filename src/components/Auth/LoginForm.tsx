@@ -138,16 +138,14 @@ const LoginForm = () => {
 
 	return (
 		<>
-			<Card className='w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:w-96 mx-auto'>
+			<Card className='w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:w-96 mx-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<CardHeader
 					variant='gradient'
 					color='indigo'
-					className='mb-4 grid h-28 place-items-center'
-				>
+					className='mb-4 grid h-28 place-items-center'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					<Typography
 						variant='h3'
-						color='white'
-					>
+						color='white' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Авторизация
 					</Typography>
 				</CardHeader>
@@ -158,11 +156,11 @@ const LoginForm = () => {
 							: handleSubmit(handleLogin)
 					}
 				>
-					<CardBody className='flex flex-col gap-4 p-4'>
+					<CardBody className='flex flex-col gap-4 p-4'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						{isChallenger ? (
 							<>
 								<Input
-									label='Email'
+									onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Email'
 									size='lg'
 									type='email'
 									{...register('email', {
@@ -174,56 +172,53 @@ const LoginForm = () => {
 											value: 6,
 											message: 'Минимальная длина 6 символов'
 										}
-									})}
-								/>
+									})}								/>
 								{errors.email && (
-									<span className='text-base'>{errors?.email?.message}</span>
+									<span className='text-base'>{String(errors?.email?.message)}</span>
 								)}
 							</>
 						) : (
 							<>
 								<Input
-									label='Логин'
-									size='lg'
-									{...register('login', {
-										required: {
-											value: true,
-											message: 'Поле обязательно для заполнения'
-										},
-										minLength: {
-											value: 6,
-											message: 'Минимальная длина 6 символов'
-										},
-										maxLength: {
-											value: 20,
-											message: 'Максимальная длина 20 символов'
-										}
-									})}
-								/>
+										onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Логин'
+										size='lg'
+										{...register('login', {
+											required: {
+												value: true,
+												message: 'Поле обязательно для заполнения'
+											},
+											minLength: {
+												value: 6,
+												message: 'Минимальная длина 6 символов'
+											},
+											maxLength: {
+												value: 20,
+												message: 'Максимальная длина 20 символов'
+											}
+										})}								/>
 								{errors.login && (
-									<span className='text-base'>{errors?.login?.message}</span>
+									<span className='text-base'>{String(errors?.login?.message)}</span>
 								)}
 								<Input
-									label='Пароль'
-									size='lg'
-									type='password'
-									{...register('password', {
-										required: {
-											value: true,
-											message: 'Поле обязательно для заполнения'
-										},
-										minLength: {
-											value: 6,
-											message: 'Минимальная длина 6 символов'
-										},
-										maxLength: {
-											value: 20,
-											message: 'Максимальная длина 20 символов'
-										}
-									})}
-								/>
+										onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} label='Пароль'
+										size='lg'
+										type='password'
+										{...register('password', {
+											required: {
+												value: true,
+												message: 'Поле обязательно для заполнения'
+											},
+											minLength: {
+												value: 6,
+												message: 'Минимальная длина 6 символов'
+											},
+											maxLength: {
+												value: 20,
+												message: 'Максимальная длина 20 символов'
+											}
+										})}								/>
 								{errors.password && (
-									<span className='text-base'>{errors?.password?.message}</span>
+									<span className='text-base'>{String(errors?.password?.message)}</span>
 								)}
 							</>
 						)}
@@ -232,35 +227,29 @@ const LoginForm = () => {
 							<Checkbox
 								color='indigo'
 								onClick={() => setIsChallenger(!isChallenger)}
-								label='Войти как претендент'
-							/>
+								label='Войти как претендент' onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}							/>
 						</div>
 					</CardBody>
-					<CardFooter className='pt-0 p-4'>
+					<CardFooter className='pt-0 p-4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<Button
 							color='indigo'
 							variant='gradient'
 							fullWidth
-							type='submit'
-						>
+							type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Войти
 						</Button>
 						{loginError && <span className='text-base'>{loginError}</span>}
 						<Typography
 							variant='small'
-							className='mt-6 flex justify-center'
-						>
+							className='mt-6 flex justify-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							Хотите стать претендентом?
 							<Typography
 								variant='small'
 								color='blue-gray'
 								className='ml-1 font-bold cursor-pointer text-indigo-600'
-								onClick={() =>
-									navigate(`${PAGE_URLS.CHALLENGER_REGISTER}`, {
-										replace: true
-									})
-								}
-							>
+								onClick={() => navigate(`${PAGE_URLS.CHALLENGER_REGISTER}`, {
+									replace: true
+								})} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}							>
 								Регистрация
 							</Typography>
 						</Typography>

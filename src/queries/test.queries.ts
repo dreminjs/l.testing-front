@@ -1,7 +1,7 @@
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
 
-import { ITest, TypeTestForm } from '@/types/test.types'
+import { ITest } from '@/types/test.types'
 
 import { TestService } from './../services/test.service'
 import { QUERY_KEYS } from '@/shared/constants/enums'
@@ -9,7 +9,7 @@ import { QUERY_KEYS } from '@/shared/constants/enums'
 export const useCreateTest = () => {
 	const queryClient = new QueryClient()
 	const { mutateAsync: create, isPending } = useMutation({
-		mutationFn: async (data: TypeTestForm) => {
+		mutationFn: async (data: any) => {
 			const response = await TestService.create(data)
 			return response.data
 		},
@@ -56,7 +56,7 @@ export const useUpdateTest = () => {
 	const { mutateAsync: update, isPending } = useMutation<
 		ITest | undefined,
 		Error,
-		{ id: string | undefined; data: TypeTestForm }
+		{ id: string | undefined; data: any}
 	>({
 		mutationFn: async ({ id, data }) => {
 			const response = await TestService.update(id, data)

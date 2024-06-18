@@ -1,6 +1,6 @@
 import { Button, Card } from '@material-tailwind/react'
 import { format } from 'date-fns'
-import { ArrowRight, BarChart, StarIcon, TimerIcon } from 'lucide-react'
+import { ArrowRight, StarIcon, TimerIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
@@ -60,17 +60,17 @@ const TestPassingForm = () => {
 		}
 	}, [startTime, testCompleted])
 
-	const userResults = user?.tests
-		?.map(t => t.results)
-		.flat()
-		.filter(r => r.testId === Number(id))
-	const [attemptRate, setAttemptRate] = useState(0)
+	// const userResults = user?.tests
+	// 	?.map(t => t.results)
+	// 	.flat()
+	// 	.filter(r => r.testId === Number(id))
+	// const [attemptRate, setAttemptRate] = useState(0)
 
-	const a = userResults?.find(r => r.attemptRate)
+	// const a = userResults?.find(r => r.attemptRate)
 
 	const onSubmit = async (data: TypeResultForm) => {
 		const endTime = new Date()
-		console.log(endTime?.getTime() - startTime.getTime())
+		// console.log(endTime?.getTime() - startTime!.getTime())
 		const duration = startTime ? endTime.getTime() - startTime.getTime() : 0
 		const completionTime = new Date()
 		const result = test?.questions?.reduce(
@@ -87,7 +87,7 @@ const TestPassingForm = () => {
 			{ correct: 0, incorrect: 0 }
 		)
 
-		const pointsPerQuestion = test?.thresholdValue / test?.questions.length
+		const pointsPerQuestion = test!.thresholdValue / test!.questions.length
 
 		const correctAnswersCount = result?.correct ?? 0
 
@@ -108,7 +108,7 @@ const TestPassingForm = () => {
 			testId: Number(id),
 			completionTime: completionTime,
 			userId: user?.id as number,
-			isPassed: duration / 1000 <= (test?.timeLimit * 60) && score >= test?.thresholdValue ? true : false,
+			isPassed: duration / 1000 <= (test!.timeLimit * 60) && score >= test!.thresholdValue ? true : false,
 			attemptRate: data.attemptRate ? Number(data.attemptRate) : 0
 		})
 		localStorage.removeItem('testStartTime')
@@ -122,7 +122,7 @@ const TestPassingForm = () => {
 		}))
 	}
 	const handleNextQuestion = () => {
-		if (currentQuestionIndex < test?.questions?.length - 1) {
+		if (currentQuestionIndex < test!.questions.length - 1) {
 			setCurrentQuestionIndex(prevIndex => prevIndex + 1)
 		} else {
 			handleSubmit(onSubmit)()
@@ -133,7 +133,7 @@ const TestPassingForm = () => {
 
 	if (testCompleted) {
 		return (
-			<Card className='max-w-md mx-auto mt-10 p-10 text-center'>
+			<Card className='max-w-md mx-auto mt-10 p-10 text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<h2 className='text-3xl sm:text-4xl font-bold text-teal-600'>
 					Результаты теста
 				</h2>
@@ -186,7 +186,7 @@ const TestPassingForm = () => {
 	}
 
 	return (
-		<Card className='min-w-[400px] mx-auto p-4 '>
+		<Card className='min-w-[400px] mx-auto p-4 ' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 			<div className='flex justify-between'>
 				{test?.testDirection.directionName}
 
@@ -239,9 +239,8 @@ const TestPassingForm = () => {
 						color='teal'
 						type='button'
 						className=' flex justify-end items-center'
-						onClick={handleNextQuestion}
-					>
-						{currentQuestionIndex < test?.questions?.length - 1
+						onClick={handleNextQuestion} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
+						{currentQuestionIndex < test!.questions.length - 1
 							? 'Далее'
 							: 'Завершить'}
 						<ArrowRight className=' ml-2 w-4 h-4' />

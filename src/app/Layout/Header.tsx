@@ -48,8 +48,7 @@ const ProfileMenu = () => {
 				<Button
 					variant='text'
 					color='blue-gray'
-					className='flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto'
-				>
+					className='flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					<UserCircleIcon
 						color='teal'
 						className='h-8 w-8'
@@ -63,17 +62,15 @@ const ProfileMenu = () => {
 					/>
 				</Button>
 			</MenuHandler>
-			<MenuList className='p-1'>
+			<MenuList className='p-1' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				{user?.roleId === 2 ? (
 					<MenuItem
-						onClick={() => navigate(`${PAGE_URLS.EDIT_CHALLENGER}/${user?.id}`)}
-					>
+						onClick={() => navigate(`${PAGE_URLS.EDIT_CHALLENGER}/${user?.id}`)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<Typography
 							as='span'
 							variant='small'
 							className='font-normal flex items-center gap-1 text-[17px]'
-							color={'inherit'}
-						>
+							color={'inherit'}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<UserIcon
 								color='teal'
 								className='h-4 w-4'
@@ -83,13 +80,12 @@ const ProfileMenu = () => {
 					</MenuItem>
 				) : null}
 
-				<MenuItem onClick={logout}>
+				<MenuItem onClick={logout} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 					<Typography
 						as='span'
 						variant='small'
 						className='font-normal flex items-center gap-1 text-[17px]'
-						color={'red'}
-					>
+						color={'red'} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<ArrowLeftEndOnRectangleIcon className='h-4 w-4' />
 						Выход
 					</Typography>
@@ -111,12 +107,10 @@ const NavList = () => {
 						variant='small'
 						color='gray'
 						onClick={() => navigate(PAGE_URLS.USERS)}
-						className='font-medium text-blue-gray-500'
-					>
+						className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
 							onClick={() => navigate(PAGE_URLS.USERS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+							className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<UsersIcon
 								color='teal'
 								className='h-[18px] w-[18px] '
@@ -127,12 +121,10 @@ const NavList = () => {
 					<Typography
 						variant='small'
 						color='gray'
-						className='font-medium text-blue-gray-500'
-					>
+						className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
 							onClick={() => navigate(PAGE_URLS.TEST_DIRECTIONS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+							className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Squares2X2Icon
 								color='teal'
 								className='h-[18px] w-[18px] '
@@ -143,12 +135,10 @@ const NavList = () => {
 					<Typography
 						variant='small'
 						color='gray'
-						className='font-medium text-blue-gray-500'
-					>
+						className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
 							onClick={() => navigate(PAGE_URLS.TESTS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+							className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<CodeBracketSquareIcon
 								color='teal'
 								className='h-[18px] w-[18px]'
@@ -160,12 +150,10 @@ const NavList = () => {
 					<Typography
 						variant='small'
 						color='gray'
-						className='font-medium text-blue-gray-500'
-					>
+						className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
 							onClick={() => navigate(PAGE_URLS.RESULTS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+							className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<TrophyIcon
 								color='teal'
 								className='h-[18px] w-[18px]'
@@ -180,14 +168,12 @@ const NavList = () => {
 			user?.roleId === 3 ? (
 				<>
 					<Typography
-						variant='small'
-						color='gray'
-						className='font-medium text-blue-gray-500'
-					>
+							variant='small'
+							color='gray'
+							className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
-							onClick={() => navigate(PAGE_URLS.TEST_DIRECTIONS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+								onClick={() => navigate(PAGE_URLS.TEST_DIRECTIONS)}
+								className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<Squares2X2Icon
 								color='teal'
 								className='h-[18px] w-[18px] '
@@ -196,14 +182,12 @@ const NavList = () => {
 						</MenuItem>
 					</Typography>
 					<Typography
-						variant='small'
-						color='gray'
-						className='font-medium text-blue-gray-500'
-					>
+							variant='small'
+							color='gray'
+							className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
-							onClick={() => navigate(PAGE_URLS.TESTS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+								onClick={() => navigate(PAGE_URLS.TESTS)}
+								className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<CodeBracketSquareIcon
 								color='teal'
 								className='h-[18px] w-[18px]'
@@ -213,14 +197,12 @@ const NavList = () => {
 					</Typography>
 
 					<Typography
-						variant='small'
-						color='gray'
-						className='font-medium text-blue-gray-500'
-					>
+							variant='small'
+							color='gray'
+							className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
-							onClick={() => navigate(PAGE_URLS.RESULTS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+								onClick={() => navigate(PAGE_URLS.RESULTS)}
+								className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<TrophyIcon
 								color='teal'
 								className='h-[18px] w-[18px]'
@@ -235,14 +217,12 @@ const NavList = () => {
 				//претендент
 				<>
 					<Typography
-						variant='small'
-						color='gray'
-						className='font-medium text-blue-gray-500'
-					>
+								variant='small'
+								color='gray'
+								className='font-medium text-blue-gray-500' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						<MenuItem
-							onClick={() => navigate(PAGE_URLS.TESTS)}
-							className='flex items-center gap-2 lg:rounded-full'
-						>
+									onClick={() => navigate(PAGE_URLS.TESTS)}
+									className='flex items-center gap-2 lg:rounded-full' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						>
 							<CodeBracketSquareIcon
 								color='teal'
 								className='h-[18px] w-[18px]'
@@ -287,7 +267,7 @@ const Header = () => {
 	}, [])
 
 	return (
-		<Navbar className='mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 fixed z-10'>
+		<Navbar className='mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 fixed z-10' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 			<div className='relative mx-auto flex items-center justify-between text-blue-gray-900'>
 				<div className='hidden lg:block'>
 					<NavList />
@@ -297,8 +277,7 @@ const Header = () => {
 					color='blue-gray'
 					variant='text'
 					onClick={toggleIsNavOpen}
-					className='ml-auto mr-2 lg:hidden'
-				>
+					className='ml-auto mr-2 lg:hidden' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					<Bars2Icon className='h-6 w-6' />
 				</IconButton>
 
@@ -306,19 +285,15 @@ const Header = () => {
 					<div className='flex items-center gap-4'>
 						<Menu>
 							<MenuHandler>
-								<Button color='teal'>Отчеты</Button>
+								<Button color='teal' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Отчеты</Button>
 							</MenuHandler>
-							<MenuList>
+							<MenuList placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 								<MenuItem
-									onClick={() => navigate(`${PAGE_URLS.REPORTS}/get-results`)}
-								>
+									onClick={() => navigate(`${PAGE_URLS.REPORTS}/get-results`)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}								>
 									Отчёт по результатам тестирования
 								</MenuItem>
 								<MenuItem
-									onClick={() =>
-										navigate(`${PAGE_URLS.REPORTS}/get-results-of-directions`)
-									}
-								>
+									onClick={() => navigate(`${PAGE_URLS.REPORTS}/get-results-of-directions`)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}								>
 									Отчёт по количеству опрошенных по направлению
 								</MenuItem>
 							</MenuList>

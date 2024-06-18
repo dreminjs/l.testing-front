@@ -25,13 +25,11 @@ const AddTestDirectionForm = () => {
 	return (
 		<Card
 			color='transparent'
-			shadow={false}
-		>
+			shadow={false} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}		>
 			<Typography
 				variant='h4'
 				color='blue-gray'
-				className='text-center'
-			>
+				className='text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}			>
 				Форма добавления направления
 			</Typography>
 
@@ -41,7 +39,7 @@ const AddTestDirectionForm = () => {
 			>
 				<div className='mb-1 flex flex-col gap-6'>
 					<Input
-						label='Название'
+						crossOrigin={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label='Название'
 						size='lg'
 						placeholder='Введите название направления'
 						{...register('directionName', {
@@ -51,8 +49,7 @@ const AddTestDirectionForm = () => {
 								message: 'Максимальная длина 30 символов',
 								value: 30
 							}
-						})}
-					/>
+						})}					/>
 					{errors.directionName && (
 						<span>{errors?.directionName?.message}</span>
 					)}
@@ -62,8 +59,7 @@ const AddTestDirectionForm = () => {
 					color='teal'
 					className='mt-6'
 					fullWidth
-					type='submit'
-				>
+					type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					Добавить
 				</Button>
 			</form>

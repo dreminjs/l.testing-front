@@ -9,8 +9,7 @@ const CustomLoader = () => {
 		>
 			<Spinner
 				color='teal'
-				className='h-6 w-6'
-			/>
+				className='h-6 w-6' onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}			/>
 		</div>
 	)
 }

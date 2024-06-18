@@ -16,8 +16,7 @@ const TableHeads: FC<ITableHeads> = ({ data }) => {
 					<Typography
 						variant='small'
 						color='black'
-						className='font-bold  leading-none '
-					>
+						className='font-bold  leading-none ' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						{head}
 					</Typography>
 				</th>

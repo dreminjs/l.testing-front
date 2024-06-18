@@ -19,7 +19,7 @@ export const usePatchResume = (id:string) => {
 export const useGetResume = (id?:string) => {
     
 	const { data, isPending ,refetch,isSuccess} = useQuery({
-		queryFn: async (data: any) => {
+		queryFn: async () => {
 			const response = await ResumeService.getOne(id)
 			return response.data
 		},

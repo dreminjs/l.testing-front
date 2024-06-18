@@ -7,7 +7,7 @@ export interface IResult {
 	userId: number
 	scoreId: number
 	completionTime: Date
-	interviewDate: Date | null
+	interviewDate: Date
 	attemptRate: number
 	isPassed: boolean
 	test: ITest

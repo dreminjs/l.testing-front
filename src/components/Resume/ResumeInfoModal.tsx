@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import Modal from '@mui/material/Modal'
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 
 import { useGetResume } from '@/queries/resume.queries'
 
@@ -13,7 +13,7 @@ export const ResumeInfoModal = ({
 	onClose: () => void
 	userId?: string
 }) => {
-	const { data, refetch, isSuccess } = useGetResume(userId)
+	const { data, refetch } = useGetResume(userId)
 	
 	useEffect(() => {
 		if (userId) {

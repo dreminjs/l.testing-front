@@ -1,4 +1,4 @@
-import { Button, Card, Option, Select } from '@material-tailwind/react'
+import { Button, Card } from '@material-tailwind/react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -28,11 +28,11 @@ const TestDirectionTable = () => {
 		navigate(`${PAGE_URLS.EDIT_TEST_DIRECTION}/${id}`)
 	}
 
-	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
+	const [sortOrder] = useState<'asc' | 'desc'>('asc')
 
-	const handleSortOrder = () => {
-		setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-	}
+	// const handleSortOrder = () => {
+	// 	setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+	// }
 
 	const sortedDirections = testDirections?.sort((a, b) => {
 		if (a.directionName < b.directionName) return sortOrder === 'asc' ? -1 : 1
@@ -59,14 +59,13 @@ const TestDirectionTable = () => {
 				<div>
 					<Button
 						color='teal'
-						onClick={() => navigate(PAGE_URLS.ADD_TEST_DIRECTION)}
-					>
+						onClick={() => navigate(PAGE_URLS.ADD_TEST_DIRECTION)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Добавить
 					</Button>
 				</div>
 			</div>
 
-			<Card className='h-full w-full mt-10 rounded-md overflow-x-auto	 overflow-y-auto'>
+			<Card className='h-full w-full mt-10 rounded-md overflow-x-auto	 overflow-y-auto' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<table className='w-full min-w-max table-auto text-left'>
 					<thead>
 						<TableHeads data={TestDirectionHeads} />

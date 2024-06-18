@@ -25,13 +25,11 @@ const AddManagerForm = () => {
 	return (
 		<Card
 			color='transparent'
-			shadow={false}
-		>
+			shadow={false} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}		>
 			<Typography
 				variant='h4'
 				color='blue-gray'
-				className='text-center'
-			>
+				className='text-center'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}			>
 				Форма добавления менеджера
 			</Typography>
 
@@ -41,7 +39,7 @@ const AddManagerForm = () => {
 			>
 				<div className='mb-1 flex flex-col gap-6'>
 					<Input
-						label='Логин'
+						crossOrigin={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label='Логин'
 						size='lg'
 						placeholder='Введите логин'
 						{...register('login', {
@@ -57,12 +55,11 @@ const AddManagerForm = () => {
 								message: 'Максимальная длина 20 символов',
 								value: 20
 							}
-						})}
-					/>
+						})}					/>
 					{errors.login && <span>{errors?.login?.message}</span>}
 
 					<Input
-						label='Пароль'
+						crossOrigin={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label='Пароль'
 						size='lg'
 						placeholder='Введите пароль'
 						type='password'
@@ -76,8 +73,7 @@ const AddManagerForm = () => {
 								message: 'Максимальная длина 30 символов',
 								value: 20
 							}
-						})}
-					/>
+						})}					/>
 					{errors.password && <span>{errors?.password?.message}</span>}
 				</div>
 
@@ -85,8 +81,7 @@ const AddManagerForm = () => {
 					color='teal'
 					className='mt-6'
 					fullWidth
-					type='submit'
-				>
+					type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					Добавить
 				</Button>
 			</form>

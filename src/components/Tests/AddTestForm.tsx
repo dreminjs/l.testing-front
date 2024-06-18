@@ -75,22 +75,20 @@ const AddTestForm: FC = () => {
 	if (isLoading) return <CustomLoader />
 
 	return (
-		<Card className='w-96 '>
+		<Card className='w-96 ' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 			<CardHeader
 				variant='gradient'
 				color='indigo'
-				className='mb-4 grid h-12 place-items-center'
-			>
+				className='mb-4 grid h-12 place-items-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}			>
 				<Typography
 					variant='h3'
-					color='white '
-					className='text-center'
-				>
+					color='white'
+					className='text-center' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}				>
 					Добавление теста
 				</Typography>
 			</CardHeader>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<CardBody className='flex flex-col gap-4'>
+				<CardBody className='flex flex-col gap-4' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 					<Controller
 						control={control}
 						rules={{
@@ -102,12 +100,11 @@ const AddTestForm: FC = () => {
 							fieldState: { error }
 						}) => (
 							<Select
-								{...field}
-								value={String(value)}
-								label='Выберите направление'
-								onChange={onChange}
-								error={!!error}
-							>
+							 placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} {...field}
+							value={String(value)}
+							label='Выберите направление'
+							onChange={onChange}
+							error={!!error}							>
 								{testDirections?.map(({ id, directionName }) => (
 									<Option
 										key={id}
@@ -123,7 +120,7 @@ const AddTestForm: FC = () => {
 
 					{photo && (
 						<img
-							className='h-[250px] w-[350px] h-full object-cover'
+							className='w-[350px] h-full object-cover'
 							src={photo}
 							alt=''
 						/>
@@ -133,68 +130,62 @@ const AddTestForm: FC = () => {
 						register={register}
 						onChangePhoto={handleChangePhoto}
 					/>
-					{errors.photo && errors?.photo?.message}
+					{errors.photo && String(errors.photo.message)}
 					<Input
-						{...register('title', {
-							required: { message: 'Обязательное поле', value: true },
-							minLength: { message: 'Минимальная длина 6 символов', value: 6 },
-							maxLength: {
-								message: 'Максимальная длина 255 символа',
-								value: 255
-							}
-						})}
-						label='Введите название теста'
-						size='lg'
-					/>
+					onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register('title', {
+						required: { message: 'Обязательное поле', value: true },
+						minLength: { message: 'Минимальная длина 6 символов', value: 6 },
+						maxLength: {
+							message: 'Максимальная длина 255 символа',
+							value: 255
+						}
+					})}
+					label='Введите название теста'
+					size='lg'					/>
 					{errors.title && errors?.title?.message}
 					<Input
-						{...register('thresholdValue', {
-							required: { message: 'Обязательное поле', value: true }
-						})}
-						type='number'
-						label='Введите количество баллов для прохождения'
-						min={1}
-						max={10}
-						size='lg'
-					/>
+					onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register('thresholdValue', {
+						required: { message: 'Обязательное поле', value: true }
+					})}
+					type='number'
+					label='Введите количество баллов для прохождения'
+					min={1}
+					max={10}
+					size='lg'					/>
 					{errors.thresholdValue && errors?.thresholdValue?.message}
 					<Input
-						{...register('timeLimit', {
-							required: { message: 'Обязательное поле', value: true }
-						})}
-						type='number'
-						label='сколько минут дано на задание?'
-						size='lg'
-					/>
+					onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register('timeLimit', {
+						required: { message: 'Обязательное поле', value: true }
+					})}
+					type='number'
+					label='сколько минут дано на задание?'
+					size='lg'					/>
 					{errors.timeLimit && errors?.timeLimit?.message}
 					<Input
-						{...register('accessTime', {
-							required: { message: 'Обязательное поле', value: true }
-						})}
-						type='datetime-local'
-						label='сколько будет доступен тест?'
-						min={new Date().toISOString().slice(0, 16)}
-						size='lg'
-					/>
+					onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register('accessTime', {
+						required: { message: 'Обязательное поле', value: true }
+					})}
+					type='datetime-local'
+					label='сколько будет доступен тест?'
+					min={new Date().toISOString().slice(0, 16)}
+					size='lg'					/>
 					{errors.accessTime && errors?.accessTime?.message}
 					<Input
-						{...register('attemptLimit', {
-							required: { message: 'Обязательное поле', value: true }
-						})}
-						type='number'
-						label='Введите лимит попыток'
-						min={1}
-						size='lg'
-					/>
+					onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register('attemptLimit', {
+						required: { message: 'Обязательное поле', value: true }
+					})}
+					type='number'
+					label='Введите лимит попыток'
+					min={1}
+					size='lg'					/>
 					{errors.attemptLimit && errors?.attemptLimit?.message}
 				</CardBody>
-				<CardFooter className='pt-0 flex justify-end'>
+				<CardFooter className='pt-0 flex justify-end' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 					<Button
 						color='indigo'
 						variant='gradient'
 						className=' flex justify-end items-center'
-						type='submit'
-					>
+						type='submit' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}					>
 						Далее
 						<ArrowRight className=' ml-2 w-4 h-4' />
 					</Button>

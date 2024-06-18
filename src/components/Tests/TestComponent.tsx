@@ -28,6 +28,10 @@ const TestComponent = () => {
 		user?.roleId !== 2
 	)
 
+	useEffect(() => {
+		refetch()
+	}, [])
+
 	const sortedTests = tests?.sort((a, b) => {
 		if (a.title < b.title) return sortOrder === 'asc' ? -1 : 1
 		if (a.title > b.title) return sortOrder === 'asc' ? 1 : -1
@@ -50,7 +54,7 @@ const TestComponent = () => {
 		setDirectionName("")
 	}
 
-	useEffect(() => {}, [directionName])
+
 
 	if (isLoading) return <CustomLoader />
 	return (

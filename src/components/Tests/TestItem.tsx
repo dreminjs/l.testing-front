@@ -96,7 +96,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 								{photo ? (
 									<img
 										className='w-full object-cover h-[250px]'
-										src={`http://localhost:8077/${photo}`}
+										src={`https://l-testing-backend-4.onrender.com/${photo}`}
 										alt='card-image'
 									/>
 								) : (

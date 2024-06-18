@@ -19,7 +19,7 @@ import { ITest } from '@/types/test.types'
 
 import NoData from '../NoData'
 
-import { PAGE_URLS } from '@/shared/constants/enums'
+import { BASE_URL, PAGE_URLS } from '@/shared/constants/enums'
 import useAuth from '@/shared/hooks/useAuth'
 import { formatTime } from '@/shared/utils/formatTime'
 
@@ -96,7 +96,7 @@ const TestItem: FC<ITestItemProps> = ({ data, onDelete, onEdit }) => {
 								{photo ? (
 									<img
 										className='w-full object-cover h-[250px]'
-										src={`https://l-testing-backend-4.onrender.com/${photo}`}
+										src={`${BASE_URL.BASE_URL}/${photo}`}
 										alt='card-image'
 									/>
 								) : (

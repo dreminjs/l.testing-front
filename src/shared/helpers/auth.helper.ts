@@ -11,11 +11,14 @@ export const getAccessToken = async () => {
 }
 
 export const saveTokensToStorage = (accessToken: string) => {
-	Cookies.set(TOKENS.ACCESS_TOKEN, accessToken, {
+	
+	const res = Cookies.set(TOKENS.ACCESS_TOKEN, accessToken, {
 		// domain: 'localhost', 
 		sameSite: 'strict',
+		
 		expires: 1
 	})
+	console.log(res)
 }
 
 export const removeFromStorage = () => {

@@ -110,6 +110,7 @@ const LoginForm = () => {
 		if (logingIsPending) {
 			setMessage('загрузка...')
 			setIsModalOpen(true)
+			
 			const timoutId = setTimeout(() => {
 				setMessage('')
 				setIsModalOpen(false)

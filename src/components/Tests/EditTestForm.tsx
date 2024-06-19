@@ -30,6 +30,7 @@ import {
 import { useGetTestDirections } from '@/queries/test-direction.queries'
 import { useGetTest, useUpdateTest } from '@/queries/test.queries'
 import { InputFileUpload } from '@/shared/components/InputUploadFile'
+import { BASE_URL } from '@/shared/constants/enums'
 
 const EditTestForm = () => {
 	const { id } = useParams()
@@ -177,7 +178,7 @@ const EditTestForm = () => {
 		}
 	}
 
-	const handleOpen = (value: number) => setOpen(open === value ? 0 : value)
+	const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
 	if (isLoading) return <CustomLoader />
 
@@ -229,8 +230,8 @@ const EditTestForm = () => {
 								{!photo && test?.photo && (
 									<img
 										className='w-[350px] block mx-auto border-2 h-full object-cover'
-										src={`http://localhost:8077/${test?.photo}`}
-										alt=''
+										src={`${BASE_URL.BASE_URL}/${test?.photo}`}
+										alt='phtot'
 									/>
 								)}
 								<InputFileUpload

@@ -1,5 +1,5 @@
 export const enum BASE_URL {
-	BASE_URL = 'https://l-testing-backend-4.onrender.com/',
+	BASE_URL = 'https://l-testing-backend-1.onrender.com',
 	// BASE_URL = 'http://localhost:8077'
 }
 

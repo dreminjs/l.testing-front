@@ -4,14 +4,12 @@ import { ArrowRight, StarIcon, TimerIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-
 import { TypeResultForm } from '@/types/result.types'
-
 import CustomLoader from '../CustomLoader'
 import { useCreateResult } from '@/queries/result.queries'
 import { useGetTest } from '@/queries/test.queries'
 import useAuth from '@/shared/hooks/useAuth'
-import { IQuestion } from '@/types/question.types'
+
 
 const TestPassingForm = () => {
 	const { id } = useParams()

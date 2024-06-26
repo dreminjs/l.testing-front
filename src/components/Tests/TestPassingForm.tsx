@@ -11,6 +11,7 @@ import CustomLoader from '../CustomLoader'
 import { useCreateResult } from '@/queries/result.queries'
 import { useGetTest } from '@/queries/test.queries'
 import useAuth from '@/shared/hooks/useAuth'
+import { IQuestion } from '@/types/question.types'
 
 const TestPassingForm = () => {
 	const { id } = useParams()
